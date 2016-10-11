@@ -27,4 +27,6 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 - MySQL/MariaDB
 
 ## Mockup
+Eine Mockup Implementierung in HTML und CSS der Weboberfläche befindet sich im Ornder **html/**.
+
 ![Mockup of Webapplication](img/mockup_webapp.png)
