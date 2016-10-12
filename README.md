@@ -36,4 +36,4 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 ## Mockup
 Eine Mockup Implementierung in HTML und CSS der Weboberfläche befindet sich im Ornder **html/**.
 
-![Mockup of Webapplication](software/img/mockup_webapp.png)
+![Mockup of Webapplication](docs/readme/mockup_webapp.png)

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://java.sun.com/JSP/Page">
+  <head>
+    <meta charset="utf-8">
+    <title>BugCoin Onlinebanking</title>
+    <link rel="stylesheet" href="style/main.css">
+  </head>
+  <body>
+    <div id="header" class="center">
+    </div>
+    <div id="container" class="center">
+    	<!-- top navigation -->
+    	<div id="nav-top">
+    		<ul>
+    			<li class="active">Login</li>
+    		</ul>
+    	</div>
+
+    	<!-- left side navigation menu -->
+    	<div id="nav-left" class="sidenav">
+
+    	</div>
+
+    	<!-- content in the center -->
+    	<div id="content">
+    		<h1>Willkommen bei BugCoin</h1>
+    		Um sich anzumelden bötigen Sie ihre Zugangsdaten sowie ihr Endgerät zur Erzeugung des Authentifizierungstokens (Google Authenticator App).<br /><br />
+
+			<div class="title">Anmeldung</div>
+
+            <div class="message" th:if="${message != null}" style="margin-top: 30px">
+                <p th:text="${message}" />
+            </div>
+
+			<form method="post" action="" style="margin-top: 30px;">
+                <table class="center">
+                    <tr>
+				        <td align="right"><label for="username">Benutzername:</label></td>
+                        <td><input type="text" id="username" name="username" /></td>
+                    </tr>
+                <tr>
+				    <td align="right"><label for="password">Passwort:</label></td>
+				    <td><input type="password" id="password" name="password" /></td>
+                </tr>
+				<tr>
+                    <td align="right"><label for="token">Auth-Token:</label></td>
+				    <td><input type="text" id="token" name="token" /></td>
+                </tr>
+                </table>
+                <br /><br />
+
+                <div class="controls">
+                    <input type="submit" value="Anmelden" />
+                </div>
+
+            </form>
+    	</div>
+
+    	<!-- right side info-box -->
+    	<div id="nav-right" class="sidenav">
+
+    	</div>
+    </div>
+  </body>
+</html>

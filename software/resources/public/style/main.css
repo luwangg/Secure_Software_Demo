@@ -27,6 +27,10 @@ div.title {
 	margin-bottom: 5px;
 }
 
+form label {
+	font-weight: bold;
+}
+
 #header {
 	top: 0;
 	width: 1040px;
@@ -133,7 +137,7 @@ ul > li.active {
 	padding: 20px;
 }
 
-.center {
+div.center {
 	margin: auto;
 	position: absolute;
 	left: 0; right: 0;
@@ -161,4 +165,26 @@ ul > li.active {
 
 #content > table th {
 	background-color: #f0f0f0;
+}
+
+#content table.center {
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+div.controls {
+    border-top: 1px solid #c2c2c2;
+    padding-top: 3px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+div.message {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid red;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
 }
