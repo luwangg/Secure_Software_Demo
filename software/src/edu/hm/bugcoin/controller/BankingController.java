@@ -9,6 +9,7 @@ package edu.hm.bugcoin.controller;
 import edu.hm.bugcoin.auth.ACL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 /**
@@ -20,7 +21,15 @@ public class BankingController
 
     @RequestMapping("/banking/transactions")
     @ACL(ACL.Type.NORMAL)
-    public String payments() {
+    public String payments()
+    {
         return "transactions";
+    }
+
+    @RequestMapping(value = "/banking/transfer", method = RequestMethod.GET)
+    @ACL(ACL.Type.NORMAL)
+    public String transfer()
+    {
+        return "transfer";
     }
 }

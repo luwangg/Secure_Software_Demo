@@ -89,12 +89,12 @@ div.sidenav {
 	cursor: pointer;
 }
 
-#nav-top > ul > li > a,
-#nav-top > ul > li > a:visited {
+ul > li > a,
+ul > li > a:visited {
 	text-decoration: none;
 	color: black;
 }
-#nav-top > ul > li.active > a {
+ul > li.active > a {
 	font-weight: bold;
 	color: #82b803;
 }
