@@ -24,6 +24,17 @@ import javax.servlet.http.HttpSession;
 public class LoginController
 {
 
+    // ----------------------------------------------------------------------------------
+    //  Konstanten
+    // ----------------------------------------------------------------------------------
+
+    private static final String HOME_PAGE = "/banking/transactions";
+
+
+    // ----------------------------------------------------------------------------------
+    //  http handlers
+    // ----------------------------------------------------------------------------------
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String view() {
         return "login";
@@ -50,7 +61,7 @@ public class LoginController
             if (id.getPassword().equals(password) && otp.verify(token))
             {
                 session.setAttribute(AuthInterceptor.SESSION_ATTR, true);
-                return "redirect:/banking/payments";
+                return "redirect:" + HOME_PAGE;
             }
 
         } catch (final RuntimeException ignored) { }

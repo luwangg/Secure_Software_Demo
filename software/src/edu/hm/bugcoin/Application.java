@@ -18,7 +18,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application
 {
 
+    // ----------------------------------------------------------------------------------
+    //  global variables
+    // ----------------------------------------------------------------------------------
+
     public static IdentityProvider identityProvider;
+
 
     // ----------------------------------------------------------------------------------
     //  application entry
