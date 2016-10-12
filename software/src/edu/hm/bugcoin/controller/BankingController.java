@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BankingController
 {
-
     @RequestMapping("/banking/transactions")
     @ACL(ACL.Type.NORMAL)
     public String payments()
@@ -31,5 +32,19 @@ public class BankingController
     public String transfer()
     {
         return "transfer";
+    }
+
+    @RequestMapping(value = "/banking/coupon", method = RequestMethod.GET)
+    @ACL(ACL.Type.NORMAL)
+    public String coupon()
+    {
+        return "coupon";
+    }
+
+    @RequestMapping(value = "/banking/coupon", method = RequestMethod.POST)
+    @ACL(ACL.Type.NORMAL)
+    public String coupon(final HttpSession session)
+    {
+        return "coupon";
     }
 }
