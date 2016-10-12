@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AccountController
 {
-    @RequestMapping("/account")
+    @RequestMapping("/account/settings")
     @ACL(ACL.Type.NORMAL)
     public String view()
     {

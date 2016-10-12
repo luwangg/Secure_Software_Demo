@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class PaymentController
+public class BankingController
 {
 
-    @RequestMapping("/payments")
+    @RequestMapping("/banking/payments")
     @ACL(ACL.Type.NORMAL)
-    public String view() {
+    public String payments() {
         return "payments";
     }
 }

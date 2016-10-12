@@ -50,7 +50,7 @@ public class LoginController
             if (id.getPassword().equals(password) && otp.verify(token))
             {
                 session.setAttribute(AuthInterceptor.SESSION_ATTR, true);
-                return "redirect:/payments";
+                return "redirect:/banking/payments";
             }
 
         } catch (final RuntimeException ignored) { }
