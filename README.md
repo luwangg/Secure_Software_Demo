@@ -3,6 +3,7 @@
 Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking Software namens "BugCoin" umgesetzt werden.
 
 ## Funktionen
+### Benutzer
 - Nutzerrollen: Benutzer, Premiumbenutzer, Administrator
 - Kontostand einsehen
 - Umsätze einsehen
@@ -10,6 +11,11 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 - Registrierung durch Nutzer selbst
 - Account deaktivieren
 - Geschenkkarte zum Konto aufladen
+
+### Admin
+- Account aktivieren/deaktivieren
+- Account upgrade/downgrade für Premiumbenutzer
+- Alle Accounts anzeigen
 
 ## Sicherheitsfeatures
 - HTTPS, kein HTTP
@@ -20,6 +26,7 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 - Emailverifizierung
 - Logout nach Inaktivität
 - Freischaltung neuer Nutzer durch Admin, nach PostIdent Verfahren
+- Logging von Benutzer/Admin aktivitäten bezüglich SQL-Statements
 
 ## Eingesetzte Technologien
 - Java / JavaEE
