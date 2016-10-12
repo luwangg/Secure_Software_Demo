@@ -15,6 +15,10 @@ h2 {
 	font-size: 16px;
 }
 
+textarea {
+	resize: none;
+}
+
 div.title {
 	font-size: 12px;
 	font-weight: bold;
@@ -198,4 +202,14 @@ div.message {
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#content.banking-transfer > form input[type=text],
+#content.banking-transfer > form textarea {
+	width: 250px;
+	padding: 2px 0 2px 0;
+}
+
+#content.banking-transfer > form textarea {
+	width: 252px;
 }

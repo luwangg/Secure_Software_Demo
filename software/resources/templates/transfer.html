@@ -29,8 +29,36 @@
     </div>
 
     <!-- content in the center -->
-    <div id="content">
+    <div id="content" class="banking-transfer">
         <h1>Überweisung</h1>
+
+        <form method="post">
+            <!-- Formular: Überweisung -->
+            <div class="title">Daten eingeben</div><br/>
+            <table class="center">
+                <tr>
+                    <td><label>Begünstigter (Name):</label></td>
+                    <td><input type="text" name="target" /></td>
+                </tr>
+                <tr>
+                    <td><label>Betrag:</label></td>
+                    <td><input type="text" name="value" /></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top;"><label>Verwendungszweck:</label></td>
+                    <td><textarea rows="6" name="subject" ></textarea></td>
+                </tr>
+                <tr>
+                    <td><label>Ausführung:</label></td>
+                    <td><input type="text" placeholder="TT.MM.JJ"/></td>
+                </tr>
+            </table><br /><br />
+
+            <!-- Buttons -->
+            <div class="controls">
+                <input type="submit" value="Weiter: Prüfen" />
+            </div>
+        </form>
     </div>
 
     <!-- right side info-box -->

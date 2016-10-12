@@ -10,6 +10,7 @@ import edu.hm.bugcoin.auth.ACL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,6 +35,13 @@ public class BankingController
         return "transfer";
     }
 
+    @RequestMapping(value = "/banking/transfer", method = RequestMethod.POST)
+    @ACL(ACL.Type.NORMAL)
+    public String transfer(@RequestParam(value="target") final String code)
+    {
+        return "transfer";
+    }
+
     @RequestMapping(value = "/banking/coupon", method = RequestMethod.GET)
     @ACL(ACL.Type.NORMAL)
     public String coupon()
@@ -43,7 +51,7 @@ public class BankingController
 
     @RequestMapping(value = "/banking/coupon", method = RequestMethod.POST)
     @ACL(ACL.Type.NORMAL)
-    public String coupon(final HttpSession session)
+    public String coupon(@RequestParam(value="code") final String code)
     {
         return "coupon";
     }
