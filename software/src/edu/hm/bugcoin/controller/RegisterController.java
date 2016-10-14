@@ -56,8 +56,13 @@ public class RegisterController
             // create the new account using the identity provider
             // and generate a random secretkey for two-factor auth
             final String secret = Base32.random();
-            Application.identityProvider.create(new Identity(
-                    registration.getUsername(), registration.getPassword(), secret));
+            final Identity identity = new Identity()
+                    .setUsername(registration.getUsername())
+                    .setPassword(registration.getPassword())
+                    .setOtpKey(secret)
+                    .setFirstname(registration.getFirstname())
+                    .setLastname(registration.getLastname());
+            Application.identityProvider.create(identity);
 
             // setup session, for the following pages and redirect
             session.setAttribute(SessionKey.REG_SECRET_KEY, secret);

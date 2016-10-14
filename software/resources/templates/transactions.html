@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://java.sun.com/JSP/Page">
   <head>
     <meta charset="utf-8">
     <title>BugCoin Onlinebanking</title>
@@ -68,7 +68,7 @@
     	<!-- right side info-box -->
     	<div id="nav-right" class="sidenav">
     		<div class="title">Account</div>
-    		Max Mustermann<br /><br />
+    		<span th:text="${me.getFirstname() + ' ' + me.getLastname()}"></span><br /><br />
 
     		Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in 5 Min.<br /><br />
     		<input type="button" value="Abmelden" onclick="window.location='/logout'" /> <br /><br /><br />

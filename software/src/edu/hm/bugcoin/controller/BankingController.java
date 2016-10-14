@@ -7,18 +7,18 @@ package edu.hm.bugcoin.controller;
  */
 
 import edu.hm.bugcoin.auth.ACL;
+import edu.hm.bugcoin.auth.InjectAttr;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpSession;
 
 
 /**
  *
  */
 @Controller
+@InjectAttr(session = SessionKey.AUTH_USER, model = "me")
 public class BankingController
 {
     @RequestMapping("/banking/transactions")

@@ -24,21 +24,18 @@ public class Identity
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    @NotNull
-    @Size(min=8, max=30)
     private String username;
-
-    @NotNull
-    @Size(min=8, max=30)
     private String password;
-
-    @NotNull
     private String otpKey;
+
+    private String firstname;
+    private String lastname;
 
 
     // ----------------------------------------------------------------------------------
     //  Konstruktoren
     // ----------------------------------------------------------------------------------
+
 
     public Identity()
     {
@@ -71,10 +68,50 @@ public class Identity
         return otpKey;
     }
 
+    public String getFirstname()
+    {
+        return firstname;
+    }
+
+    public String getLastname()
+    {
+        return lastname;
+    }
 
     // ----------------------------------------------------------------------------------
     //  Setter
     // ----------------------------------------------------------------------------------
+
+
+    public Identity setUsername(String username)
+    {
+        this.username = username;
+        return this;
+    }
+
+    public Identity setPassword(String password)
+    {
+        this.password = password;
+        return this;
+    }
+
+    public Identity setOtpKey(String otpKey)
+    {
+        this.otpKey = otpKey;
+        return this;
+    }
+
+    public Identity setFirstname(String firstname)
+    {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public Identity setLastname(String lastname)
+    {
+        this.lastname = lastname;
+        return this;
+    }
 
 
     // ----------------------------------------------------------------------------------

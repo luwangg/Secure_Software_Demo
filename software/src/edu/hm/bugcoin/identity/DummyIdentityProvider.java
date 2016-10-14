@@ -34,9 +34,9 @@ public class DummyIdentityProvider implements IdentityProvider
 
     public DummyIdentityProvider()
     {
-        identities.add(new Identity("marvin", "123", "kladf0u9aufj"));
-        identities.add(new Identity("martin", "123", "kladf0u9aufj"));
-        identities.add(new Identity("maxi", "123", "26MOCFUXZ5G6MJ2K"));
+        identities.add(new Identity("test", "123", "26MOCFUXZ5G6MJ2K")
+                .setFirstname("Max")
+                .setLastname("Mustermann"));
     }
 
 

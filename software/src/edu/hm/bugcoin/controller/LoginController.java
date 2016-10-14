@@ -60,7 +60,7 @@ public class LoginController
             // validate password and otp key
             if (id.getPassword().equals(password) && otp.verify(token))
             {
-                session.setAttribute(AuthInterceptor.SESSION_ATTR, true);
+                session.setAttribute(SessionKey.AUTH_USER, id);
                 return "redirect:" + HOME_PAGE;
             }
 
@@ -73,7 +73,8 @@ public class LoginController
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute(AuthInterceptor.SESSION_ATTR);
+        session.removeAttribute(SessionKey.AUTH_USER);
+        session.invalidate();
         return "redirect:/";
     }
 }

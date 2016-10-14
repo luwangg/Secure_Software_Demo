@@ -10,7 +10,7 @@ package edu.hm.bugcoin.controller;
 public class SessionKey
 {
     /* Authentication. */
-    public static final String AUTH_VALID = "auth_valid";
+    public static final String AUTH_USER = "auth_user";
 
     /* Registration. */
     public static final String REG_SECRET_KEY = "reg_secret_key";
