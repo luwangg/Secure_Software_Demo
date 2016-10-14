@@ -1,0 +1,215 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 20px;
+}
+
+h2 {
+	font-size: 16px;
+}
+
+textarea {
+	resize: none;
+}
+
+div.title {
+	font-size: 12px;
+	font-weight: bold;
+	width: 100%;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #c2c2c2;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	margin-bottom: 5px;
+}
+
+form label {
+	font-weight: bold;
+}
+
+#header {
+	top: 0;
+	width: 1040px;
+	height: 190px;
+	background: url(../img/header.png);
+}
+
+#container {
+	top: 160px;
+	width: 995px;
+	bottom: 0;
+	height: auto;
+	font-size: 12px;
+}
+
+div.sidenav {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	padding: 20px 10px 10px 10px;
+	font-size: 12px;
+}
+
+#nav-top {
+	width: 995px;
+	height: 25px;
+	background-color: #dddddd;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#nav-top > ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	height: 100%;
+}
+
+#nav-top > ul > li {
+	margin: 0;
+	padding: 0;
+	float: left;
+	line-height: 25px;
+	font-weight: bold;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	padding-left: 10px;
+	padding-right: 10px;
+
+	border-style: solid;
+	border-color: #999999;
+	border-width: 0 1px 0 0;
+
+	cursor: pointer;
+}
+
+ul > li > a,
+ul > li > a:visited {
+	text-decoration: none;
+	color: black;
+}
+ul > li.active > a {
+	font-weight: bold;
+	color: #82b803;
+}
+
+
+#nav-left {
+	background-color: #f1f1f1;
+	height: auto;
+	position: absolute;
+	top: 25px;
+	bottom: 0;
+	width: 190px;
+}
+
+#nav-left > ul {
+	padding-left: 15px;
+	list-style-type: none;
+}
+
+#nav-left > ul > li {
+	margin-bottom: 4px;
+	cursor: pointer;
+}
+
+ul > li.active {
+	font-weight: bold;
+	color: #82b803;
+}
+
+#nav-right {
+	background-color: #f1f1f1;
+	height: auto;
+	position: absolute;
+	top: 25px;
+	bottom: 0;
+	right: 0;
+	width: 190px;
+}
+
+#content {
+	background-color: white;
+	height: auto;
+	position: absolute;
+	top: 25px;
+	bottom: 0;
+	left: 190px;
+	width: 615px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	padding: 20px;
+}
+
+div.center {
+	margin: auto;
+	position: absolute;
+	left: 0; right: 0;
+}
+
+#content > table {
+	width: 100%;
+}
+
+#content > table {
+	border: 1px solid #f1f1f1;
+}
+
+#content > table td {
+	vertical-align: top;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	padding: 5px;
+}
+
+#content > table td:last-child {
+	text-align: right;
+}
+
+#content > table th {
+	background-color: #f0f0f0;
+}
+
+#content table.center {
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+div.controls {
+    border-top: 1px solid #c2c2c2;
+    padding-top: 5px;
+    text-align: right;
+    padding-right: 20px;
+}
+
+div.message {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid red;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#content.banking-transfer > form input[type=text],
+#content.banking-transfer > form textarea {
+	width: 250px;
+	padding: 2px 0 2px 0;
+}
+
+#content.banking-transfer > form textarea {
+	width: 252px;
+}

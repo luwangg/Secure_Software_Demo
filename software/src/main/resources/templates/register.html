@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://java.sun.com/JSP/Page">
+<head>
+    <meta charset="utf-8">
+    <title>BugCoin Onlinebanking</title>
+    <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+<div id="header" class="center">
+</div>
+<div id="container" class="center">
+    <!-- top navigation -->
+    <div id="nav-top">
+        <ul>
+            <li><a href="/">Anmeldung</a></li>
+            <li class="active"><a href="/register">Registrieren</a></li>
+        </ul>
+    </div>
+
+    <!-- left side navigation menu -->
+    <div id="nav-left" class="sidenav">
+
+    </div>
+
+    <!-- content in the center -->
+    <div id="content">
+        <h1>Registrieren</h1>
+        Um ein neues BugCoin Konto anzulegen, fülle bitte das untenstehende Forumlar aus. Bitte beachte,
+        dass eine Verifizierung deiner Angaben mittels Postident-Verfahren durchgeführt wird.<br /><br />
+
+        <form method="post">
+            <!-- Formular: Person -->
+            <div class="title">Person</div><br />
+            <table style="width: 100%;">
+                <tr>
+                    <td><label>Name:</label></td>
+                    <td><input type="text"></td>
+                    <td><label>Vorname:</label></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><label>Straße:</label></td>
+                    <td><input type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Postleitzahl:</label></td>
+                    <td><input type="text" /></td>
+                    <td><label>Ort:</label></td>
+                    <td><input type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Email:</label></td>
+                    <td><input type="text" /></td>
+                </tr>
+            </table><br /><br />
+
+            <!-- Formular: Account -->
+            <div class="title">Account</div><br />
+            <table style="width: 100%;">
+                <tr>
+                    <td><label>Benutzername:</label></td>
+                    <td><input type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Passwort:</label></td>
+                    <td><input type="password"></td>
+                    <td><label>Wiederholen:</label></td>
+                    <td><input type="password"></td>
+                </tr>
+            </table><br /><br />
+
+            <!-- Buttons -->
+            <div class="controls">
+                <input type="reset" value="Abbrechen" />
+                <input type="submit" value="Weiter: Two-Factor" />
+            </div>
+        </form>
+    </div>
+
+    <!-- right side info-box -->
+    <div id="nav-right" class="sidenav">
+        <div class="title">Registrieren</div>
+        Hast du noch kein Account bei BugCoin? Dann kannst du mit nur ein paar Klicks hier einen neuen erstellen.
+        <br /><br />
+        <input type="button" value="Registrieren" onclick="window.location='/register'" />
+    </div>
+</div>
+</body>
+</html>
