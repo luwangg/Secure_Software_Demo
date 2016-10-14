@@ -21,13 +21,14 @@ import java.lang.reflect.Method;
  */
 public class AuthInterceptor implements HandlerInterceptor
 {
+    private static final int SESSION_TIMEOUT_MIN = 10;
+
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception
     {
         // get the session if no session is found -> redirect to home
-        final HttpSession session = req.getSession(false);
-        if (session == null)
-            return true;
+        final HttpSession session = req.getSession(true);
+        session.setMaxInactiveInterval(SESSION_TIMEOUT_MIN * 60);
 
         // get the handler method which will be executed
         final Method method = ((HandlerMethod)handler).getMethod();

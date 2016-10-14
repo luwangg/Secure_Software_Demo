@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>BugCoin Onlinebanking</title>
     <link rel="stylesheet" href="/style/main.css">
+	<script type="text/javascript" src="/js/logout.js"></script>
   </head>
   <body>
     <div id="header" class="center">
@@ -70,7 +71,7 @@
     		<div class="title">Account</div>
     		<span th:text="${me.getFirstname() + ' ' + me.getLastname()}"></span><br /><br />
 
-    		Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in 5 Min.<br /><br />
+    		Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in<br /><span id="force-logout">10</span> Min.<br /><br />
     		<input type="button" value="Abmelden" onclick="window.location='/logout'" /> <br /><br /><br />
 
     		<div class="title">Finanzstatus</div>
