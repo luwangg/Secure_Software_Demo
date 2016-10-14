@@ -12,4 +12,5 @@ package edu.hm.bugcoin.identity;
 public interface IdentityProvider
 {
     Identity resolve(final String username);
+    void create(Identity identity);
 }

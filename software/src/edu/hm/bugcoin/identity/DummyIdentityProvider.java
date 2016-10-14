@@ -37,7 +37,6 @@ public class DummyIdentityProvider implements IdentityProvider
         identities.add(new Identity("marvin", "123", "kladf0u9aufj"));
         identities.add(new Identity("martin", "123", "kladf0u9aufj"));
         identities.add(new Identity("maxi", "123", "26MOCFUXZ5G6MJ2K"));
-
     }
 
 
@@ -63,6 +62,10 @@ public class DummyIdentityProvider implements IdentityProvider
                 .findFirst().get();
     }
 
+    @Override public void create(final Identity identity)
+    {
+        identities.add(identity);
+    }
 
     // ----------------------------------------------------------------------------------
     //  Aendernde Methoden

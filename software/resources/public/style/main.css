@@ -213,3 +213,12 @@ div.message {
 #content.banking-transfer > form textarea {
 	width: 252px;
 }
+
+input[type=text], input[type=password] {
+	border: 1px solid #c2c2c2;
+	padding-left: 2px;
+}
+
+input.error {
+	border: 1px solid red;
+}

@@ -6,6 +6,9 @@ package edu.hm.bugcoin.identity;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  *
  */
@@ -21,14 +24,25 @@ public class Identity
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    private final String username;
-    private final String password;
-    private final String otpKey;
+    @NotNull
+    @Size(min=8, max=30)
+    private String username;
+
+    @NotNull
+    @Size(min=8, max=30)
+    private String password;
+
+    @NotNull
+    private String otpKey;
 
 
     // ----------------------------------------------------------------------------------
     //  Konstruktoren
     // ----------------------------------------------------------------------------------
+
+    public Identity()
+    {
+    }
 
     public Identity(String username, String password, String otpKey)
     {
@@ -77,4 +91,14 @@ public class Identity
     //  Standardmethoden
     // ----------------------------------------------------------------------------------
 
+
+    @Override
+    public String toString()
+    {
+        return "Identity{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", otpKey='" + otpKey + '\'' +
+                '}';
+    }
 }
