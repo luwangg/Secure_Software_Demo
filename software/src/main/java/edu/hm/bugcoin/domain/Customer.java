@@ -1,9 +1,8 @@
 package edu.hm.bugcoin.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.NaturalId;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -22,11 +21,15 @@ public class Customer implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    @NaturalId
+    private String nickname;
+
     @Column(nullable = false)
     private String lastname;
 
     @Column(nullable = false)
-    private String name;
+    private String firstname;
 
     @Column(nullable = false)
     private String street;
@@ -37,22 +40,19 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String city;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String passwordhash;
 
-    protected Customer() {
-    }
-
     // ----------------------------------------------------------------------------------
     //  Constructor
     // ----------------------------------------------------------------------------------
-    public Customer(String lastname, String name, String street, String postcode, String city, String email, String passwordhash) {
+    public Customer(String lastname, String firstname, String street, String postcode, String city, String email, String passwordhash) {
         super();
         this.lastname = lastname;
-        this.name = name;
+        this.firstname = firstname;
         this.street = street;
         this.postcode = postcode;
         this.city = city;
@@ -60,6 +60,8 @@ public class Customer implements Serializable {
         this.passwordhash = passwordhash;
     }
 
+    protected Customer() {
+    }
     // ----------------------------------------------------------------------------------
     //  Getter
     // ----------------------------------------------------------------------------------
@@ -71,12 +73,16 @@ public class Customer implements Serializable {
         return id;
     }
 
+    public String nickname() {
+        return nickname;
+    }
+
     public String getLastname() {
         return lastname;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
 
@@ -100,7 +106,7 @@ public class Customer implements Serializable {
     }
 
 
-    public String getPasswordHash() {
+    public String getPasswordhash() {
         return passwordhash;
     }
 
@@ -108,6 +114,10 @@ public class Customer implements Serializable {
     // ----------------------------------------------------------------------------------
     //  Setter
     // ----------------------------------------------------------------------------------
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
@@ -116,8 +126,8 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public void setStreet(String street) {
@@ -147,7 +157,7 @@ public class Customer implements Serializable {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstname='" + firstname + '\'' +
                 ", street='" + street + '\'' +
                 ", postcode='" + postcode + '\'' +
                 ", city='" + city + '\'' +

@@ -1,8 +1,9 @@
 package edu.hm.bugcoin.service;
 
 
-import org.springframework.data.repository.Repository;
+import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
@@ -12,30 +13,26 @@ import java.util.List;
  */
 
 /**
- * Queries related to the Customer-Table.
+ * Queries related to the Bankaccount-Table.
  */
-public interface CustomerRepository extends Repository<Customer, Long>{
+public interface BankAccountRepository extends Repository<Bankaccount, Long>{
 
     // ----------------------------------------------------------------------------------
     //  Request
     // ----------------------------------------------------------------------------------
-    Customer findByNickname(String nickname);
+    Bankaccount findByAccountnumber(long accountnumber);
 
-    Customer findByEmail(String email);
-
-    List<Customer> findByLastnameAndFirstname(String lastname, String firstname);
-
-    List<Customer> findByLastname(String lastname);
-
+    List<Bankaccount> findByCustomer(Customer customer);
 
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
+    Bankaccount saveAndFlush(Bankaccount account);
+
 
 
     // ----------------------------------------------------------------------------------
     //  Delete
     // ----------------------------------------------------------------------------------
-
 
 }
