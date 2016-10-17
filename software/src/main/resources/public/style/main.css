@@ -225,3 +225,12 @@ input.error {
 #content.banking-transfer > form textarea {
 	width: 252px;
 }
+
+#nav-right table.accounts a,
+#nav-right table.accounts a:visited {
+	text-decoration: none;
+	color: black;
+}
+#nav-right table.accounts a:hover {
+	text-decoration: underline;
+}
