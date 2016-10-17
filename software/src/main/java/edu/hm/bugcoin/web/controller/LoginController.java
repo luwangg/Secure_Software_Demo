@@ -6,7 +6,9 @@ package edu.hm.bugcoin.web.controller;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
+import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.service.BankAccountRepository;
 import edu.hm.bugcoin.service.CustomerService;
 import org.jboss.aerogear.security.otp.Totp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -37,8 +40,8 @@ public class LoginController
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    @Autowired
-    private CustomerService customerService;
+    @Autowired private CustomerService customerService;
+    @Autowired private BankAccountRepository bankAccountRepository;
 
 
     // ----------------------------------------------------------------------------------
@@ -55,7 +58,7 @@ public class LoginController
     public String login(@RequestParam(value="username") final String username,
                         @RequestParam(value="password") final String password,
                         @RequestParam(value="token") final String token,
-                        HttpSession session, Model model)
+                        final HttpSession session, final Model model)
     {
         // do the login
         try

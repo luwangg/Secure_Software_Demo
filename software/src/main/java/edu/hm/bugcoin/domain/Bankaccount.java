@@ -1,4 +1,7 @@
 package edu.hm.bugcoin.domain;
+/*
+ * Created by shreaker on 14.10.16.
+ */
 
 import org.hibernate.annotations.NaturalId;
 
@@ -6,8 +9,9 @@ import javax.annotation.Generated;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 /**
- * Created by shreaker on 14.10.16.
+ *
  */
 @Entity
 public class Bankaccount implements Serializable{
@@ -17,15 +21,12 @@ public class Bankaccount implements Serializable{
     // ----------------------------------------------------------------------------------
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY, optional=false)
     private Customer customer;
 
     @Column(nullable = false, unique = true)
     @NaturalId
+    @Id
     private Long accountnumber;
 
     @Column(nullable = false, unique = false)
@@ -81,5 +82,23 @@ public class Bankaccount implements Serializable{
                 "accountnumber=" + accountnumber +
                 ", balance=" + balance +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bankaccount that = (Bankaccount) o;
+
+        return accountnumber != null ? accountnumber.equals(that.accountnumber) : that.accountnumber == null;
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return accountnumber != null ? accountnumber.hashCode() : 0;
     }
 }

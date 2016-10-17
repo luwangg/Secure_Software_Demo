@@ -7,6 +7,7 @@ package edu.hm.bugcoin.web.controller;
  */
 
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.service.BankAccountRepository;
 import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.web.auth.ACL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +29,18 @@ public class AccountController
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    @Autowired
-    private CustomerService customerService;
+    @Autowired private CustomerService customerService;
+    @Autowired private BankAccountRepository bankAccountRepository;
+
 
     // ----------------------------------------------------------------------------------
     //  attributes
     // ----------------------------------------------------------------------------------
 
-    @ModelAttribute
-    public void attrs(final HttpSession session, final Model model) {
+    @ModelAttribute public void attrs(final HttpSession session, final Model model) {
         final Customer user = (Customer)session.getAttribute(SessionKey.AUTH_USER);
         model.addAttribute("me", user);
-        model.addAttribute("accounts", customerService.getBankAccounts(user.getNickname()));
+        model.addAttribute("accounts", bankAccountRepository.findByCustomer(user));
     }
 
     // ----------------------------------------------------------------------------------

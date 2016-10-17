@@ -35,35 +35,64 @@
     		Sie waren zuletzt angemeldet am 18.09.2016 um 21:54 Uhr.<br />
 			Die letzte Überweisung wurde mittels OTP-Verfahren am 17.09.2016 um 22:11 Uhr getätigt.<br /><br />
 
+			<div class="title">Filter</div>
+            <form>
+			<table style="width: 100%;">
+                <!--/*@thymesVar id="accounts" type="edu.hm.bugcoin.domain.Bankaccount"*/-->
+                <tr>
+					<td><label>Konto:</label></td>
+					<td>
+						<select style="width: 150px;" onchange="window.location='?account=' + this.value">
+                            <option th:each="account : ${accounts}"
+                                    th:attr="value=${account.getAccountnumber()}, selected=${account.equals(selectedAccount) ? true : false}"
+                                    th:text="${account.getAccountnumber()}">
+                            </option>
+                        </select>
+					</td>
+                    <td><label>Seit:</label></td>
+                    <td>
+                        <input type="text" placeholder="TT.MM.YYYY" />
+                    </td>
+				</tr>
+                <tr>
+                    <td><label>Art:</label></td>
+                    <td>
+                        <select style="width: 150px;">
+                            <option>Ausgabe</option>
+                            <option>Einkommen</option>
+                        </select>
+                    </td>
+                </tr>
+			</table>
+            </form><br />
+
 			<div class="title">Umsätze</div><br/>
 			<table>
 				<tr>
 					<th>Buchung</th>
+                    <th>Empfänger</th>
 					<th>Verwendungszweck</th>
-					<th>Betrag</th>
+					<th style="width: 110px;">Betrag</th>
 				</tr>
-				<tr>
-					<td>05.10.2016</td>
-					<td>KARTENZAHLUNG<br />MVG AUTOMAT HEIMERAN­PL. III//MUENCHEN/DE<br />2016-10-03T23:24:14 Karte1 2017-12</td>
-					<td>-189,00 EUR</td>
-				</tr>
-				<tr>
-					<td>10.10.2016</td>
-					<td>SEPA-ELV-LASTSCHRIFT<br />KAISERS TENGELMANN GMBH<br />ELVXXXXXXXX 06.10 13.59 ME1 VIELEN DANK</td>
-					<td>-2,04 EUR</td>
-				</tr>
-				<tr>
-					<td>04.10.2016</td>
-					<td>GUTSCHRIFT ALEXANDRA MUSTERMANN<br />Zusatzticket WS 16/17</td>
-					<td>189,00 EUR</td>
-				</tr>
-				<tr>
-					<td>10.10.2016</td>
-					<td>FOLGELASTSCHRIFT<br />PayPal Europe S.a.r.l. et Cie S.C.A<br />PP.XXXX.PP . NETFLIX COM, Ihr Einkauf bei NETFLIX COM</td>
-					<td>- 7,99 EUR</td>
-				</tr>
-			</table>
 
+                <!--/*--><!--@thymesVar id="transactions" type="edu.hm.bugcoin.domain.Transaction"--><!--*/-->
+                <tr th:each="transaction : ${transactions}"
+                    th:with="target=${transaction.getTargetAccount()},
+                             source=${transaction.getSourceAccount()}">
+                    <td>--.--.----</td>
+                    <td>
+                        <span th:text="${target.getCustomer().getFirstname()}"></span>
+                        <span th:text="${target.getCustomer().getLastname()}"></span><br />
+                        <span th:text="${target.getAccountnumber()}"></span>
+                    </td>
+                    <td><span th:utext="${#strings.replace(transaction.getDescription(), '\n', '<br />')}"></span></td>
+                    <td th:style="${source.equals(selectedAccount) ? 'color: red;' : ''}">
+                        <span th:if="${source.equals(selectedAccount)}">-</span>
+                        <span th:if="${!source.equals(selectedAccount)}">+</span>
+                        <span th:text="${#numbers.formatDecimal(transaction.getAmount(), 0, 'POINT', 2, 'COMMA')}"></span> EUR
+                    </td>
+                </tr>
+			</table>
     	</div>
 
     	<!-- right side info-box -->

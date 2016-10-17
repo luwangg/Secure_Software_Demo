@@ -15,4 +15,6 @@ public class SessionKey
     /* Registration. */
     public static final String REG_SECRET_KEY = "reg_secret_key";
     public static final String REG_FORM = "reg_form";
+
+    public static final String SELECTED_ACCOUNT = "selected_account";
 }

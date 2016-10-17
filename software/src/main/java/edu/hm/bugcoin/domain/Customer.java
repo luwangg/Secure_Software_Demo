@@ -178,4 +178,25 @@ public class Customer implements Serializable {
                 ", passwordHash='" + password + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (id != null ? !id.equals(customer.id) : customer.id != null) return false;
+        return nickname != null ? nickname.equals(customer.nickname) : customer.nickname == null;
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
+        return result;
+    }
 }
