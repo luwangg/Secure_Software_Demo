@@ -6,10 +6,11 @@ package edu.hm.bugcoin.web.controller;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
-import edu.hm.bugcoin.DataJpaApplication;
+import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.web.controller.forms.Registration;
-import edu.hm.bugcoin.web.identity.Identity;
 import org.jboss.aerogear.security.otp.api.Base32;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,14 @@ public class RegisterController
 
 
     // ----------------------------------------------------------------------------------
+    //  Objektvariablen
+    // ----------------------------------------------------------------------------------
+
+    @Autowired
+    private CustomerService customerService;
+
+
+    // ----------------------------------------------------------------------------------
     //  HTTP Handler
     // ----------------------------------------------------------------------------------
 
@@ -56,13 +65,17 @@ public class RegisterController
             // create the new account using the identity provider
             // and generate a random secretkey for two-factor auth
             final String secret = Base32.random();
-            final Identity identity = new Identity()
-                    .setUsername(registration.getUsername())
+            final Customer customer = new Customer()
+                    .setNickname(registration.getUsername())
                     .setPassword(registration.getPassword())
                     .setOtpKey(secret)
                     .setFirstname(registration.getFirstname())
-                    .setLastname(registration.getLastname());
-            DataJpaApplication.identityProvider.create(identity);
+                    .setLastname(registration.getLastname())
+                    .setStreet(registration.getStreet())
+                    .setPostcode(registration.getPostalcode())
+                    .setCity(registration.getCity())
+                    .setEmail(registration.getEmail());
+            customerService.addCustomer(customer);
 
             // setup session, for the following pages and redirect
             session.setAttribute(SessionKey.REG_SECRET_KEY, secret);

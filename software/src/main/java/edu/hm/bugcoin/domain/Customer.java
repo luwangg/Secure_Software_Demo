@@ -44,30 +44,21 @@ public class Customer implements Serializable {
     private String email;
 
     @Column(nullable = false)
-    private String passwordhash;
+    private String password;
+
+    @Column(nullable = false, name = "otpkey")
+    private String otpKey;
 
     // ----------------------------------------------------------------------------------
     //  Constructor
     // ----------------------------------------------------------------------------------
-    public Customer(String lastname, String firstname, String street, String postcode, String city, String email, String passwordhash) {
-        super();
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.street = street;
-        this.postcode = postcode;
-        this.city = city;
-        this.email = email;
-        this.passwordhash = passwordhash;
-    }
 
-    protected Customer() {
-    }
+    public Customer() { }
+
+
     // ----------------------------------------------------------------------------------
     //  Getter
     // ----------------------------------------------------------------------------------
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public Long getId() {
         return id;
@@ -106,49 +97,71 @@ public class Customer implements Serializable {
     }
 
 
-    public String getPasswordhash() {
-        return passwordhash;
+    public String getPassword() {
+        return password;
+    }
+
+    public String getOtpKey()
+    {
+        return otpKey;
     }
 
 
     // ----------------------------------------------------------------------------------
     //  Setter
     // ----------------------------------------------------------------------------------
-    public void setNickname(String nickname) {
+
+    public Customer setNickname(String nickname) {
         this.nickname = nickname;
+        return this;
     }
 
-    public void setLastname(String lastname) {
+    public Customer setLastname(String lastname) {
         this.lastname = lastname;
+        return this;
     }
 
-    public void setId(Long id) {
+    public Customer setId(Long id) {
         this.id = id;
+        return this;
     }
 
-    public void setFirstname(String firstname) {
+    public Customer setFirstname(String firstname) {
         this.firstname = firstname;
+        return this;
     }
 
-    public void setStreet(String street) {
+    public Customer setStreet(String street) {
         this.street = street;
+        return this;
     }
 
-    public void setPostcode(String postcode) {
+    public Customer setPostcode(String postcode) {
         this.postcode = postcode;
+        return this;
     }
 
-    public void setCity(String city) {
+    public Customer setCity(String city) {
         this.city = city;
+        return this;
     }
 
-    public void setEmail(String email) {
+    public Customer setEmail(String email) {
         this.email = email;
+        return this;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordhash = passwordHash;
+    public Customer setPassword(String passwordHash) {
+        this.password = passwordHash;
+        return this;
     }
+
+    public Customer setOtpKey(String otpKey)
+    {
+        this.otpKey = otpKey;
+        return this;
+    }
+
 
     // ----------------------------------------------------------------------------------
     //  Override
@@ -162,7 +175,7 @@ public class Customer implements Serializable {
                 ", postcode='" + postcode + '\'' +
                 ", city='" + city + '\'' +
                 ", email='" + email + '\'' +
-                ", passwordHash='" + passwordhash + '\'' +
+                ", passwordHash='" + password + '\'' +
                 '}';
     }
 }

@@ -210,6 +210,18 @@ div.message {
 	padding: 2px 0 2px 0;
 }
 
+input[type=text], input[type=password] {
+	border: 1px solid #c2c2c2;
+	padding-left: 2px;
+}
+
+textarea {
+    border: 1px solid #c2c2c2;
+}
+
+input.error {
+	border: 1px solid red;
+}
 #content.banking-transfer > form textarea {
 	width: 252px;
 }

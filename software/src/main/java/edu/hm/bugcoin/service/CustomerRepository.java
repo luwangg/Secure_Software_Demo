@@ -32,6 +32,8 @@ public interface CustomerRepository extends Repository<Customer, Long>{
     //  Update / Add
     // ----------------------------------------------------------------------------------
 
+    Customer save(Customer account);
+
 
     // ----------------------------------------------------------------------------------
     //  Delete

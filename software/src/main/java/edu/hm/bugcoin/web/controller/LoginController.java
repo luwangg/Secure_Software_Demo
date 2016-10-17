@@ -6,13 +6,14 @@ package edu.hm.bugcoin.web.controller;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
-import edu.hm.bugcoin.DataJpaApplication;
+import edu.hm.bugcoin.domain.Customer;
 import edu.hm.bugcoin.service.CustomerService;
-import edu.hm.bugcoin.web.identity.Identity;
 import org.jboss.aerogear.security.otp.Totp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,15 +26,19 @@ import javax.servlet.http.HttpSession;
 public class LoginController
 {
 
-    @Autowired
-    private CustomerService customerService;
-
-
     // ----------------------------------------------------------------------------------
     //  Konstanten
     // ----------------------------------------------------------------------------------
 
     private static final String HOME_PAGE = "/banking/transactions";
+
+
+    // ----------------------------------------------------------------------------------
+    //  Objektvariablen
+    // ----------------------------------------------------------------------------------
+
+    @Autowired
+    private CustomerService customerService;
 
 
     // ----------------------------------------------------------------------------------
@@ -45,7 +50,8 @@ public class LoginController
         return "login";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @PostMapping(value = "/")
+    @Transactional(readOnly = true)
     public String login(@RequestParam(value="username") final String username,
                         @RequestParam(value="password") final String password,
                         @RequestParam(value="token") final String token,
@@ -59,10 +65,11 @@ public class LoginController
                 throw new RuntimeException();
 
             // search for the uesr in database
-            final Identity id = DataJpaApplication.identityProvider.resolve(username);
+            final Customer id = customerService.getCustomer(username);
             final Totp otp = new Totp(id.getOtpKey());
 
             // validate password and otp key
+            // TODO: store password as hash in database!
             if (id.getPassword().equals(password) && otp.verify(token))
             {
                 session.setAttribute(SessionKey.AUTH_USER, id);
