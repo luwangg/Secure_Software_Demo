@@ -28,29 +28,29 @@
         Um ein neues BugCoin Konto anzulegen, fülle bitte das untenstehende Forumlar aus. Bitte beachte,
         dass eine Verifizierung deiner Angaben mittels Postident-Verfahren durchgeführt wird.<br /><br />
 
-        <form method="post">
+        <form method="post" th:object="${registration}">
             <!-- Formular: Person -->
             <div class="title">Person</div><br />
             <table style="width: 100%;">
                 <tr>
                     <td><label>Name:</label></td>
-                    <td><input type="text"></td>
+                    <td><input type="text" th:field="*{lastname}" th:classappend="${#fields.hasErrors('lastname')} ? error : none" th:attr="data-test=${#fields.errors('lastname')}" /></td>
                     <td><label>Vorname:</label></td>
-                    <td><input type="text"></td>
+                    <td><input type="text" th:field="*{firstname}" th:classappend="${#fields.hasErrors('firstname')} ? error : none" th:attr="data-test=${#fields.errors('firstname')}" /></td>
                 </tr>
                 <tr>
                     <td><label>Straße:</label></td>
-                    <td><input type="text" /></td>
+                    <td><input type="text" th:field="*{street}" th:classappend="${#fields.hasErrors('street')} ? error : none" th:attr="data-test=${#fields.errors('street')}" /></td>
                 </tr>
                 <tr>
                     <td><label>Postleitzahl:</label></td>
-                    <td><input type="text" /></td>
+                    <td><input type="text" th:field="*{postalcode}" th:classappend="${#fields.hasErrors('postalcode')} ? error : none" th:attr="data-test=${#fields.errors('postalcode')}" /></td>
                     <td><label>Ort:</label></td>
-                    <td><input type="text" /></td>
+                    <td><input type="text" th:field="*{city}" th:classappend="${#fields.hasErrors('city')} ? error : none" th:attr="data-test=${#fields.errors('city')}" /></td>
                 </tr>
                 <tr>
                     <td><label>Email:</label></td>
-                    <td><input type="text" /></td>
+                    <td><input type="text" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? error : none" th:attr="data-test=${#fields.errors('email')}" /></td>
                 </tr>
             </table><br /><br />
 
@@ -59,13 +59,13 @@
             <table style="width: 100%;">
                 <tr>
                     <td><label>Benutzername:</label></td>
-                    <td><input type="text" /></td>
+                    <td><input type="text" name="username" th:field="*{username}" th:classappend="${#fields.hasErrors('username')} ? error : none" th:attr="data-test=${#fields.errors('username')}" /></td>
                 </tr>
                 <tr>
                     <td><label>Passwort:</label></td>
-                    <td><input type="password"></td>
+                    <td><input type="password" name="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? error : none" th:attr="data-test=${#fields.errors('password')}" /></td>
                     <td><label>Wiederholen:</label></td>
-                    <td><input type="password"></td>
+                    <td><input type="password" name="password2" th:field="*{password2}" th:classappend="${#fields.hasErrors('password2')} ? error : none" th:attr="data-test=${#fields.errors('password2')}" /></td>
                 </tr>
             </table><br /><br />
 
