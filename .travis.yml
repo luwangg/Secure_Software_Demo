@@ -1,3 +1,4 @@
 before_script: cd software
-language: java
+language: 
+  - oraclejdk8
 script: mvn clean verify
