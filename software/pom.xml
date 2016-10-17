@@ -8,7 +8,7 @@
 	</parent>
 
 	<artifactId>spring-boot-sample-data-jpa</artifactId>
-	<firstname>Secure Software Demo</firstname>
+	<name>Secure Software Demo</name>
 	<description>Secure Software Demo</description>
 
 
