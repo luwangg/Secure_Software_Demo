@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/shreaker/Secure_Software_Demo.svg?branch=master)](https://travis-ci.org/shreaker/Secure_Software_Demo)
+
 # Software-Sicherheit
 
 Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking Software namens "BugCoin" umgesetzt werden.
@@ -29,11 +31,15 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 - Logging von Benutzer/Admin aktivitäten bezüglich SQL-Statements
 
 ## Eingesetzte Technologien
-- Java / JavaEE
+- Java -> SpringBoot (Spring)
 - Maven
-- MySQL/MariaDB
+- H2 database
+- Design patterns: MVC + Table Data Gateway
 
 ## Mockup
 Eine Mockup Implementierung in HTML und CSS der Weboberfläche befindet sich im Ornder **html/**.
 
 ![Mockup of Webapplication](docs/readme/mockup_webapp.png)
+
+##Continuous integration   
+https://travis-ci.org/shreaker/Secure_Software_Demo [![Build Status](https://travis-ci.org/shreaker/Secure_Software_Demo.svg?branch=master)](https://travis-ci.org/shreaker/Secure_Software_Demo)

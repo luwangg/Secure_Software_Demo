@@ -7,7 +7,8 @@
 		<version>1.4.1.RELEASE</version>
 	</parent>
 
-	<artifactId>ssedemo</artifactId>
+	<artifactId>spring-boot-sample-data-jpa</artifactId>
+	<name>Secure Software Demo</name>
 	<version>1.0</version>
 	<description>Secure Software Demo</description>
 
