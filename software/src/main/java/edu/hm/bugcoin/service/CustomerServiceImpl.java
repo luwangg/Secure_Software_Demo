@@ -79,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override public Customer addCustomer(final Customer customer)
     {
         Assert.notNull(customer, "customer must not be null!");
-        return customerRepository.save(customer);
+        return customerRepository.saveAndFlush(customer);
     }
 
     // ----------------------------------------------------------------------------------
