@@ -1,0 +1,22 @@
+<div class="title">Account</div>
+<span th:text="${me.getFirstname() + ' ' + me.getLastname()}"></span><br /><br />
+
+Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in<br /><span id="force-logout">10</span> Min.<br /><br />
+<input type="button" value="Abmelden" onclick="window.location='/logout'" /> <br /><br /><br />
+
+<div class="title">Finanzstatus</div>
+<table style="font-size: 11px; width: 100%;">
+    <tr style="font-weight: bold;">
+        <td>Konto</td>
+        <td align="right">Kontost. (EUR)</td>
+    </tr>
+
+    <tr>
+        <td>546886</td>
+        <td align="right">14.949,00</td>
+    </tr>
+    <tr>
+        <td>980234</td>
+        <td align="right">678,32</td>
+    </tr>
+</table>

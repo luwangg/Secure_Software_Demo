@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://java.sun.com/JSP/Page">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <title>BugCoin Onlinebanking</title>
@@ -27,7 +27,7 @@
 				<li><a href="/banking/transfer">Überweisung</a></li>
     			<li><a href="/banking/coupon">Gutschein einlösen</a></li>
     		</ul>
-    	</div>
+		</div>
 
     	<!-- content in the center -->
     	<div id="content">
@@ -67,30 +67,7 @@
     	</div>
 
     	<!-- right side info-box -->
-    	<div id="nav-right" class="sidenav">
-    		<div class="title">Account</div>
-    		<span th:text="${me.getFirstname() + ' ' + me.getLastname()}"></span><br /><br />
-
-    		Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in<br /><span id="force-logout">10</span> Min.<br /><br />
-    		<input type="button" value="Abmelden" onclick="window.location='/logout'" /> <br /><br /><br />
-
-    		<div class="title">Finanzstatus</div>
-    		<table style="font-size: 11px; width: 100%;">
-    			<tr style="font-weight: bold;">
-    				<td>Konto</td>
-    				<td align="right">Kontost. (EUR)</td>
-    			</tr>	
-
-    			<tr>
-    				<td>546886</td>
-    				<td align="right">14.949,00</td>
-    			</tr>
-    			<tr>
-    				<td>980234</td>
-    				<td align="right">678,32</td>
-    			</tr>
-    		</table>
-    	</div>
+    	<div id="nav-right" class="sidenav" th:include="layout/sidebar"></div>
     </div>
   </body>
 </html>
