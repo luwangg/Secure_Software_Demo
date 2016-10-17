@@ -7,10 +7,9 @@
 		<version>1.4.1.RELEASE</version>
 	</parent>
 
-	<artifactId>spring-boot-sample-data-jpa</artifactId>
-	<firstname>Secure Software Demo</firstname>
+	<artifactId>ssedemo</artifactId>
+	<version>1.0</version>
 	<description>Secure Software Demo</description>
-
 
 	<organization>
 		<name>University of Applied Science Munich</name>
@@ -62,8 +61,6 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-
-
 	<build>
 		<plugins>
 			<plugin>
