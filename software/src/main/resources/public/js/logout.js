@@ -1,13 +1,5 @@
 var logoutTimer = setTimeout(logoutTimerCheck, 60000);
 var logoutTime = 10;
-document.onkeypress=logoutTimerReset;
-document.onmousemove=logoutTimerReset;
-
-function logoutTimerReset()
-{
-    logoutTime = 10;
-    document.getElementById("force-logout").innerHTML = logoutTime.toString();
-}
 
 function logoutTimerCheck()
 {
