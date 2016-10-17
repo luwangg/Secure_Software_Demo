@@ -64,7 +64,7 @@ public class Customer implements Serializable {
         return id;
     }
 
-    public String nickname() {
+    public String getNickname() {
         return nickname;
     }
 

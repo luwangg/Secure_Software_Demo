@@ -48,18 +48,7 @@ public class AuthInterceptor implements HandlerInterceptor
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
             throws Exception
     {
-        // get the session
-        final HttpSession session = request.getSession(false);
-        if (session == null)
-            return;
 
-        // get the handler method which will be executed
-        final InjectAttr inject = ((HandlerMethod)handler).getMethod().getDeclaringClass().getAnnotation(InjectAttr.class);
-        if (inject != null)
-        {
-            // inject the user identity
-            modelAndView.getModel().put(inject.model(), session.getAttribute(inject.session()));
-        }
     }
 
     @Override

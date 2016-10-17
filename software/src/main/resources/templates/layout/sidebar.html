@@ -1,3 +1,4 @@
+<div xmlns:th="http://java.sun.com/JSP/Page">
 <div class="title">Account</div>
 <span th:text="${me.getFirstname() + ' ' + me.getLastname()}"></span><br /><br />
 
@@ -11,12 +12,9 @@ Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in<br /><span id="force-l
         <td align="right">Kontost. (EUR)</td>
     </tr>
 
-    <tr>
-        <td>546886</td>
-        <td align="right">14.949,00</td>
-    </tr>
-    <tr>
-        <td>980234</td>
-        <td align="right">678,32</td>
+    <tr th:each="account : ${accounts}">
+        <td th:text="${account.getAccountnumber()}"></td>
+        <td align="right"><span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"></span></td>
     </tr>
 </table>
+</div>
