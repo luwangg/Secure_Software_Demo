@@ -5,7 +5,7 @@ document.onmousemove=logoutTimerReset;
 
 function logoutTimerReset()
 {
-   // logoutTime = 2;
+    logoutTime = 10;
     document.getElementById("force-logout").innerHTML = logoutTime.toString();
 }
 

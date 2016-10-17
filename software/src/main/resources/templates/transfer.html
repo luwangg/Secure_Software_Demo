@@ -36,7 +36,7 @@
         <form method="post">
             <!-- Formular: Überweisung -->
             <div class="title">Daten eingeben</div><br/>
-            <table class="center">
+            <table class="center"  style="width: 70%;">
                 <tr>
                     <td><label>Begünstigter (Name):</label></td>
                     <td><input type="text" name="target" /></td>
@@ -48,6 +48,18 @@
                 <tr>
                     <td style="vertical-align: top;"><label>Verwendungszweck:</label></td>
                     <td><textarea rows="6" name="subject" ></textarea></td>
+                </tr>
+                <tr>
+                    <td><label>Konto:</label></td>
+                    <td>
+                        <select>
+                            <!--/*@thymesVar id="accounts" type="edu.hm.bugcoin.domain.Bankaccount"*/-->
+                            <option th:each="account : ${accounts}"
+                                    th:attr="value=${account.getAccountnumber()}, selected=${account.equals(selectedAccount) ? true : false}"
+                                    th:text="${account.getAccountnumber()}">
+                            </option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label>Ausführung:</label></td>

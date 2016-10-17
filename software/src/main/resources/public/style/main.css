@@ -204,26 +204,29 @@ div.message {
     box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
-#content.banking-transfer > form input[type=text],
-#content.banking-transfer > form textarea {
-	width: 250px;
-	padding: 2px 0 2px 0;
+div.banking-transfer form input[type=text],
+div.banking-transfer form input[type=passoword],
+div.banking-transfer form textarea,
+div.banking-transfer form select {
+	width: 100%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password],
+textarea {
 	border: 1px solid #c2c2c2;
 	padding-left: 2px;
 }
 
-textarea {
-    border: 1px solid #c2c2c2;
+select {
+	border: 1px solid #c2c2c2;
 }
 
 input.error {
 	border: 1px solid red;
-}
-#content.banking-transfer > form textarea {
-	width: 252px;
 }
 
 #nav-right table.accounts a,
