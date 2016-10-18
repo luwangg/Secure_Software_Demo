@@ -66,16 +66,6 @@ public class CustomerServiceImpl implements CustomerService{
         return bankAccountRepository.saveAndFlush(bankaccount);
     }
 
-    @Override
-    public Bankaccount updateAccountBalance(final long accountNumber, final float newBalance) {
-        Assert.notNull(accountNumber, "Accountnumber must not be null");
-        Assert.notNull(newBalance, "NewBalance must not be null");
-        Bankaccount bankaccount = bankAccountRepository.findByAccountnumber(accountNumber);
-        bankaccount.setBalance(newBalance);
-        bankAccountRepository.saveAndFlush(bankaccount);
-        return null;
-    }
-
     @Override public Customer addCustomer(final Customer customer)
     {
         Assert.notNull(customer, "customer must not be null!");

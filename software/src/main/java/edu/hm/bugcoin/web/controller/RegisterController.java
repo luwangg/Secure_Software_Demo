@@ -6,9 +6,11 @@ package edu.hm.bugcoin.web.controller;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
+import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
 import edu.hm.bugcoin.security.CryptoUserData;
 import edu.hm.bugcoin.security.CryptoUserDataBcrypt;
+import edu.hm.bugcoin.service.BankAccountService;
 import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.web.controller.forms.Registration;
 import org.jboss.aerogear.security.otp.api.Base32;
@@ -44,6 +46,8 @@ public class RegisterController
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private BankAccountService bankAccountService;
 
 
     // ----------------------------------------------------------------------------------
@@ -76,8 +80,9 @@ public class RegisterController
                     .setPostcode(registration.getPostalcode())
                     .setCity(registration.getCity())
                     .setEmail(registration.getEmail());
-            setPasswordHashAndSaltToCustomer(customer, registration.getPassword());
+            setPasswordHashAndSaltOfCustomer(customer, registration.getPassword());
             customerService.addCustomer(customer);
+            setBankAccountOfCustomer(customer);
 
             // setup session, for the following pages and redirect
             session.setAttribute(SessionKey.REG_SECRET_KEY, secret);
@@ -111,11 +116,17 @@ public class RegisterController
         return "redirect:/";
     }
 
-    private void setPasswordHashAndSaltToCustomer(Customer customer, String password){
+    private void setPasswordHashAndSaltOfCustomer(Customer customer, String password){
         CryptoUserData cryptoUserData = new CryptoUserDataBcrypt();
         String salt = cryptoUserData.generateSalt();
         String hash = cryptoUserData.hashUserData(password, salt);
         customer.setSalt(salt);
         customer.setPassword(hash);
+    }
+
+    private void setBankAccountOfCustomer(Customer customer){
+        final float INITIAL_BALANCE = 0;
+        Bankaccount newBankaccount = customerService.addBankAccount(customer, bankAccountService.getNewAccountNr());
+        newBankaccount.setBalance(INITIAL_BALANCE);
     }
 }
