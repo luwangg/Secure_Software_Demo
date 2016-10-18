@@ -47,9 +47,15 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Bankaccount>  getBankAccounts(String nickname) {
+    public List<Bankaccount> getBankAccounts(String nickname) {
         Assert.notNull(nickname, "Nickname must not be null");
         Customer customer = customerRepository.findByNickname(nickname);
+        return bankAccountRepository.findByCustomer(customer);
+    }
+
+    @Override
+    public List<Bankaccount> getBankAccounts(Customer customer) {
+        Assert.notNull(customer, "Customer must not be null");
         return bankAccountRepository.findByCustomer(customer);
     }
 

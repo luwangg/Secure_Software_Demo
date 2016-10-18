@@ -46,7 +46,7 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @Column()
+    @Column(nullable = false)
     private String salt;
 
     @Column(nullable = false, name = "otpkey")

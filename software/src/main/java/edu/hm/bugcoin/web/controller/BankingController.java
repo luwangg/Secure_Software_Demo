@@ -9,6 +9,7 @@ package edu.hm.bugcoin.web.controller;
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
 import edu.hm.bugcoin.service.BankAccountRepository;
+import edu.hm.bugcoin.service.BankAccountService;
 import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.service.TransactionRepository;
 import edu.hm.bugcoin.web.auth.ACL;
@@ -31,7 +32,7 @@ public class BankingController
     // ----------------------------------------------------------------------------------
 
     @Autowired private CustomerService customerService;
-    @Autowired private BankAccountRepository bankAccountRepository;
+    @Autowired private BankAccountService bankAccountService;
     @Autowired private TransactionRepository transactionRepository;
 
 
@@ -40,9 +41,9 @@ public class BankingController
     // ----------------------------------------------------------------------------------
 
     @ModelAttribute public void attrs(final HttpSession session, final Model model) {
-        final Customer user = (Customer)session.getAttribute(SessionKey.AUTH_USER);
-        model.addAttribute("me", user);
-        model.addAttribute("accounts", bankAccountRepository.findByCustomer(user));
+        final Customer customer = (Customer)session.getAttribute(SessionKey.AUTH_USER);
+        model.addAttribute("me", customer);
+        model.addAttribute("accounts", customerService.getBankAccounts(customer));
     }
 
 
@@ -58,13 +59,13 @@ public class BankingController
     {
         Bankaccount selectedAccount;
         if (account == null)
-            selectedAccount = bankAccountRepository.findByCustomer(customer).get(0);
+            selectedAccount = customerService.getBankAccounts(customer).get(0);
         else
-            selectedAccount = bankAccountRepository.findByAccountnumber(account);
+            selectedAccount = bankAccountService.getAccount(account);
 
         // make sure the account belongs to the authenticated user
         if (selectedAccount == null || !selectedAccount.getCustomer().equals(customer))
-            selectedAccount = bankAccountRepository.findByCustomer(customer).get(0);
+            selectedAccount = customerService.getBankAccounts(customer).get(0);
 
         model.addAttribute("selectedAccount", selectedAccount);
         model.addAttribute("transactions",

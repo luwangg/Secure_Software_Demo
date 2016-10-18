@@ -24,6 +24,8 @@ public interface CustomerService {
 
     List<Bankaccount> getBankAccounts(String nickname);
 
+    List<Bankaccount> getBankAccounts(Customer customer);
+
 
     // ----------------------------------------------------------------------------------
     //  Update / Add

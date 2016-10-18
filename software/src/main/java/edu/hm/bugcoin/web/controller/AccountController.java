@@ -30,7 +30,6 @@ public class AccountController
     // ----------------------------------------------------------------------------------
 
     @Autowired private CustomerService customerService;
-    @Autowired private BankAccountRepository bankAccountRepository;
 
 
     // ----------------------------------------------------------------------------------
@@ -38,9 +37,9 @@ public class AccountController
     // ----------------------------------------------------------------------------------
 
     @ModelAttribute public void attrs(final HttpSession session, final Model model) {
-        final Customer user = (Customer)session.getAttribute(SessionKey.AUTH_USER);
-        model.addAttribute("me", user);
-        model.addAttribute("accounts", bankAccountRepository.findByCustomer(user));
+        final Customer customer = (Customer)session.getAttribute(SessionKey.AUTH_USER);
+        model.addAttribute("me", customer);
+        model.addAttribute("accounts", customerService.getBankAccounts(customer));
     }
 
     // ----------------------------------------------------------------------------------
