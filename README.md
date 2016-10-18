@@ -41,5 +41,8 @@ Eine Mockup Implementierung in HTML und CSS der Weboberfläche befindet sich im 
 
 ![Mockup of Webapplication](docs/readme/mockup_webapp.png)
 
-##Continuous integration   
+## Continuous integration   
 https://travis-ci.org/shreaker/Secure_Software_Demo [![Build Status](https://travis-ci.org/shreaker/Secure_Software_Demo.svg?branch=master)](https://travis-ci.org/shreaker/Secure_Software_Demo)
+
+## Deployment
+Unter https://salty-anchorage-26470.herokuapp.com steht eine mehr oder weniger aktuelle Version der Webapplikation zur verfügung. Achtung: Bis dato wird die Applikation im development mode betrieben, das bedeutet die Datenbank wird spätestens nach 24h zurückgesetzt.

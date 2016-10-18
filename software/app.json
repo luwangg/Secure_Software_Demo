@@ -1,0 +1,6 @@
+{
+  "name": "Secure Software Demo",
+  "description": "A basic online banking application.",
+  "image": "heroku/java",
+  "addons": []
+}
