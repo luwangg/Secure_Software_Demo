@@ -72,7 +72,6 @@ public class LoginController
             final Totp otp = new Totp(customer.getOtpKey());
 
             // validate password and otp key
-            // TODO: store password as hash in database!
             if (verifyPassword(password, customer.getPassword()) && otp.verify(token))
             {
                 session.setAttribute(SessionKey.AUTH_USER, customer);
