@@ -3,6 +3,7 @@ package edu.hm.bugcoin.service;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -22,13 +23,14 @@ public interface BankAccountRepository extends Repository<Bankaccount, Long>{
     // ----------------------------------------------------------------------------------
     Bankaccount findByAccountnumber(long accountnumber);
 
+    List<Bankaccount> findAll();
+
     List<Bankaccount> findByCustomer(Customer customer);
 
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
     Bankaccount saveAndFlush(Bankaccount account);
-
 
 
     // ----------------------------------------------------------------------------------

@@ -46,8 +46,13 @@ public class Customer implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    @Column()
+    private String salt;
+
     @Column(nullable = false, name = "otpkey")
     private String otpKey;
+
+
 
     // ----------------------------------------------------------------------------------
     //  Constructor
@@ -100,6 +105,11 @@ public class Customer implements Serializable {
     public String getPassword() {
         return password;
     }
+
+    public String getSalt() {
+        return salt;
+    }
+
 
     public String getOtpKey()
     {
@@ -154,6 +164,10 @@ public class Customer implements Serializable {
     public Customer setPassword(String passwordHash) {
         this.password = passwordHash;
         return this;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public Customer setOtpKey(String otpKey)

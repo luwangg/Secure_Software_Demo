@@ -6,8 +6,9 @@ package edu.hm.bugcoin.web.controller;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
-import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.security.CryptoUserData;
+import edu.hm.bugcoin.security.CryptoUserDataBcrypt;
 import edu.hm.bugcoin.service.BankAccountRepository;
 import edu.hm.bugcoin.service.CustomerService;
 import org.jboss.aerogear.security.otp.Totp;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
@@ -68,14 +68,14 @@ public class LoginController
                 throw new RuntimeException();
 
             // search for the uesr in database
-            final Customer id = customerService.getCustomer(username);
-            final Totp otp = new Totp(id.getOtpKey());
+            final Customer customer = customerService.getCustomer(username);
+            final Totp otp = new Totp(customer.getOtpKey());
 
             // validate password and otp key
             // TODO: store password as hash in database!
-            if (id.getPassword().equals(password) && otp.verify(token))
+            if (verifyPassword(password, customer.getPassword()) && otp.verify(token))
             {
-                session.setAttribute(SessionKey.AUTH_USER, id);
+                session.setAttribute(SessionKey.AUTH_USER, customer);
                 return "redirect:" + HOME_PAGE;
             }
 
@@ -91,5 +91,10 @@ public class LoginController
         session.removeAttribute(SessionKey.AUTH_USER);
         session.invalidate();
         return "redirect:/";
+    }
+
+    private boolean verifyPassword(String password, String passwordHash){
+        CryptoUserData cryptoUserData = new CryptoUserDataBcrypt();
+        return cryptoUserData.verifyUserData(password, passwordHash);
     }
 }

@@ -7,6 +7,8 @@ package edu.hm.bugcoin.web.controller;
  */
 
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.security.CryptoUserData;
+import edu.hm.bugcoin.security.CryptoUserDataBcrypt;
 import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.web.controller.forms.Registration;
 import org.jboss.aerogear.security.otp.api.Base32;
@@ -65,9 +67,8 @@ public class RegisterController
             // create the new account using the identity provider
             // and generate a random secretkey for two-factor auth
             final String secret = Base32.random();
-            final Customer customer = new Customer()
+            final Customer customer = new Customer() //TODO why not a constructor?
                     .setNickname(registration.getUsername())
-                    .setPassword(registration.getPassword())
                     .setOtpKey(secret)
                     .setFirstname(registration.getFirstname())
                     .setLastname(registration.getLastname())
@@ -75,6 +76,7 @@ public class RegisterController
                     .setPostcode(registration.getPostalcode())
                     .setCity(registration.getCity())
                     .setEmail(registration.getEmail());
+            setPasswordHashAndSaltToCustomer(customer, registration.getPassword());
             customerService.addCustomer(customer);
 
             // setup session, for the following pages and redirect
@@ -107,5 +109,13 @@ public class RegisterController
         session.removeAttribute(SessionKey.REG_SECRET_KEY);
 
         return "redirect:/";
+    }
+
+    private void setPasswordHashAndSaltToCustomer(Customer customer, String password){
+        CryptoUserData cryptoUserData = new CryptoUserDataBcrypt();
+        String salt = cryptoUserData.generateSalt();
+        String hash = cryptoUserData.hashUserData(password, salt);
+        customer.setSalt(salt);
+        customer.setPassword(hash);
     }
 }

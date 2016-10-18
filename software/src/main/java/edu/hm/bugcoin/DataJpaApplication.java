@@ -12,6 +12,7 @@ public class DataJpaApplication {
 
 
 	public static void main(String[] args) throws Exception {
+
 		SpringApplication.run(DataJpaApplication.class, args);
 	}
 
