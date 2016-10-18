@@ -44,8 +44,8 @@
 					<td>
 						<select style="width: 150px;" onchange="window.location='?account=' + this.value">
                             <option th:each="account : ${accounts}"
-                                    th:attr="value=${account.getAccountnumber()}, selected=${account.equals(selectedAccount) ? true : false}"
-                                    th:text="${account.getAccountnumber()}">
+                                    th:attr="value=${account.getAccountNumber()}, selected=${account.equals(selectedAccount) ? true : false}"
+                                    th:text="${account.getAccountNumber()}">
                             </option>
                         </select>
 					</td>
@@ -70,7 +70,7 @@
 			<table>
 				<tr>
 					<th>Buchung</th>
-                    <th>Empfänger</th>
+                    <th>An / Von</th>
 					<th>Verwendungszweck</th>
 					<th style="width: 110px;">Betrag</th>
 				</tr>
@@ -80,10 +80,15 @@
                     th:with="target=${transaction.getTargetAccount()},
                              source=${transaction.getSourceAccount()}">
                     <td>--.--.----</td>
-                    <td>
+                    <td th:if="${source.equals(selectedAccount)}">
                         <span th:text="${target.getCustomer().getFirstname()}"></span>
                         <span th:text="${target.getCustomer().getLastname()}"></span><br />
-                        <span th:text="${target.getAccountnumber()}"></span>
+                        <span th:text="${target.getAccountNumber()}"></span>
+                    </td>
+                    <td th:if="${!source.equals(selectedAccount)}">
+                        <span th:text="${source.getCustomer().getFirstname()}"></span>
+                        <span th:text="${source.getCustomer().getLastname()}"></span><br />
+                        <span th:text="${source.getAccountNumber()}"></span>
                     </td>
                     <td><span th:utext="${#strings.replace(transaction.getDescription(), '\n', '<br />')}"></span></td>
                     <td th:style="${source.equals(selectedAccount) ? 'color: red;' : ''}">

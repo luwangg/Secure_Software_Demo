@@ -1,58 +1,45 @@
-package edu.hm.bugcoin.domain;
+package edu.hm.bugcoin.task;
 /*
- * Projekt: bugcoin
+ * Projekt: software
  * Autor: Maximilian Pachl
- * 2016-10-17 12:35
+ * 2016-10-18 18:35
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import edu.hm.bugcoin.domain.Bankaccount;
+import edu.hm.bugcoin.domain.Transaction;
+import org.springframework.util.Assert;
+import org.springframework.util.ExceptionTypeFilter;
 
 
 /**
  *
  */
-@Entity
-public class Transaction implements Serializable
+public class TransferTask extends Task
 {
 
     // ----------------------------------------------------------------------------------
     //  Konstanten
     // ----------------------------------------------------------------------------------
 
-    private static final long serialVersionUID = 1L;
+    private static final String TRANSFER_PREFIX = "ÜBERWEISUNG\\n";
 
 
     // ----------------------------------------------------------------------------------
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @ManyToOne
-    private Bankaccount sourceAccount;
-
-    @ManyToOne
-    private Bankaccount targetAccount;
-
-    @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private Float amount;
+    private final long sourceAccount;
+    private final long targetAccount;
+    private final String description;
+    private final float amount;
 
 
     // ----------------------------------------------------------------------------------
     //  Konstruktoren
     // ----------------------------------------------------------------------------------
 
-    public Transaction() { }
-
-    public Transaction(Bankaccount sourceAccount, Bankaccount targetAccount, String description, Float amount)
+    public TransferTask(long sourceAccount, long targetAccount, String description, float amount)
     {
         this.sourceAccount = sourceAccount;
         this.targetAccount = targetAccount;
@@ -64,26 +51,6 @@ public class Transaction implements Serializable
     // ----------------------------------------------------------------------------------
     //  Getter
     // ----------------------------------------------------------------------------------
-
-    public Bankaccount getSourceAccount()
-    {
-        return sourceAccount;
-    }
-
-    public Bankaccount getTargetAccount()
-    {
-        return targetAccount;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public Float getAmount()
-    {
-        return amount;
-    }
 
 
     // ----------------------------------------------------------------------------------
@@ -100,21 +67,37 @@ public class Transaction implements Serializable
     //  Aendernde Methoden
     // ----------------------------------------------------------------------------------
 
+    @Override public void exectue()
+    {
+        Assert.isTrue(amount > 0, "amount must be positive");
+
+        try
+        {
+            // find the bank accounts
+            final Bankaccount source = getBankAccountService().getAccount(sourceAccount);
+            final Bankaccount target = getBankAccountService().getAccount(targetAccount);
+
+            // validate existence of all accounts
+            if (source == null || target == null)
+                throw new RuntimeException("reverted transaction, because one of the accounts does not exist");
+
+            // validate the two accounts are different
+            if (source.equals(target))
+                throw new RuntimeException("source and target accounts are the same");
+
+            // create the transaction in database
+            getTransactionRepository().saveAndFlush(
+                    new Transaction(source, target, TRANSFER_PREFIX + description, amount));
+
+            System.out.println("transferred " + amount + " from " + sourceAccount + " to " + targetAccount);
+
+        // transaction failed
+        } catch (final Exception ex) { System.out.println(ex.getMessage()); }
+    }
+
 
     // ----------------------------------------------------------------------------------
     //  Standardmethoden
     // ----------------------------------------------------------------------------------
 
-
-    @Override
-    public String toString()
-    {
-        return "Transaction{" +
-                "id=" + id +
-                ", sourceAccount=" + sourceAccount +
-                ", targetAccount=" + targetAccount +
-                ", description='" + description + '\'' +
-                ", amount=" + amount +
-                '}';
-    }
 }

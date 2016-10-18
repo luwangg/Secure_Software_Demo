@@ -125,8 +125,6 @@ public class RegisterController
     }
 
     private void setBankAccountOfCustomer(Customer customer){
-        final float INITIAL_BALANCE = 0;
         Bankaccount newBankaccount = customerService.addBankAccount(customer, bankAccountService.getNewAccountNr());
-        newBankaccount.setBalance(INITIAL_BALANCE);
     }
 }

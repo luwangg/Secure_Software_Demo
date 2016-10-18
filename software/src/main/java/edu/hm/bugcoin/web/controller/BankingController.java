@@ -6,12 +6,15 @@ package edu.hm.bugcoin.web.controller;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
+import edu.hm.bugcoin.Application;
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
 import edu.hm.bugcoin.service.BankAccountRepository;
 import edu.hm.bugcoin.service.BankAccountService;
 import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.service.TransactionRepository;
+import edu.hm.bugcoin.task.TaskWorker;
+import edu.hm.bugcoin.task.TransferTask;
 import edu.hm.bugcoin.web.auth.ACL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,7 @@ public class BankingController
     @Autowired private CustomerService customerService;
     @Autowired private BankAccountService bankAccountService;
     @Autowired private TransactionRepository transactionRepository;
+    @Autowired private TaskWorker tasks;
 
 
     // ----------------------------------------------------------------------------------
@@ -74,7 +78,7 @@ public class BankingController
         return "transactions";
     }
 
-    @RequestMapping(value = "/banking/transfer", method = RequestMethod.GET)
+    @GetMapping("/banking/transfer")
     @ACL(ACL.Type.NORMAL)
     public String transfer()
     {
@@ -83,8 +87,12 @@ public class BankingController
 
     @RequestMapping(value = "/banking/transfer", method = RequestMethod.POST)
     @ACL(ACL.Type.NORMAL)
-    public String transfer(@RequestParam(value="target") final String code)
+    public String transfer(@RequestParam("target") final long target,
+                           @RequestParam("amount") final float amount,
+                           @RequestParam("source") final long source,
+                           @RequestParam("subject") final String subject)
     {
+        tasks.add(new TransferTask(source, target, subject, amount));
         return "transfer";
     }
 

@@ -1,9 +1,14 @@
 package edu.hm.bugcoin.service;
+/*
+ * Created by shreaker on 18.10.16.
+ */
 
 import edu.hm.bugcoin.domain.Bankaccount;
+import org.springframework.data.jpa.repository.Query;
+
 
 /**
- * Created by shreaker on 18.10.16.
+ *
  */
 public interface BankAccountService {
 
@@ -15,11 +20,13 @@ public interface BankAccountService {
 
     Bankaccount getAccount(long accountNumber);
 
+    float getBalance(long accountNumber);
+
+
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
 
-    Bankaccount updateAccountBalance(long accountNumber, float newBalance);
 
     // ----------------------------------------------------------------------------------
     //  Delete

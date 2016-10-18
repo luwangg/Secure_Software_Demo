@@ -68,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService{
         Assert.notNull(customer, "Customer must not be null");
         Assert.notNull(accountNumber, "Accountnumber must not be null");
         final float INITIAL_ACCOUNT_BALANCE = 0;
-        Bankaccount bankaccount = new Bankaccount(customer, accountNumber, INITIAL_ACCOUNT_BALANCE);
+        Bankaccount bankaccount = new Bankaccount(customer, accountNumber);
         return bankAccountRepository.saveAndFlush(bankaccount);
     }
 

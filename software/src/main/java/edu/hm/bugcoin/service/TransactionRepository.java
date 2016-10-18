@@ -7,6 +7,7 @@ package edu.hm.bugcoin.service;
  */
 
 import edu.hm.bugcoin.domain.Bankaccount;
+import edu.hm.bugcoin.domain.Customer;
 import edu.hm.bugcoin.domain.Transaction;
 import org.springframework.data.repository.Repository;
 
@@ -19,4 +20,6 @@ import java.util.List;
 public interface TransactionRepository extends Repository<Transaction, Long>
 {
     List<Transaction> findByTargetAccountOrSourceAccount(Bankaccount targetAccount, Bankaccount sourceAccount);
+
+    Transaction saveAndFlush(Transaction transaction);
 }

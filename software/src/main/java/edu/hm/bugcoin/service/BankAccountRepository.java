@@ -21,7 +21,7 @@ public interface BankAccountRepository extends Repository<Bankaccount, Long>{
     // ----------------------------------------------------------------------------------
     //  Request
     // ----------------------------------------------------------------------------------
-    Bankaccount findByAccountnumber(long accountnumber);
+    Bankaccount findByAccountNumber(long accountNumber);
 
     List<Bankaccount> findAll();
 

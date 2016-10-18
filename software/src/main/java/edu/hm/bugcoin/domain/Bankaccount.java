@@ -3,9 +3,13 @@ package edu.hm.bugcoin.domain;
  * Created by shreaker on 14.10.16.
  */
 
+import edu.hm.bugcoin.service.BankAccountService;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.Generated;
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,11 +18,13 @@ import java.io.Serializable;
  *
  */
 @Entity
+@Component
 public class Bankaccount implements Serializable{
 
     // ----------------------------------------------------------------------------------
     //  Member variable
     // ----------------------------------------------------------------------------------
+
     private static final long serialVersionUID = 1L;
 
     @ManyToOne(fetch=FetchType.LAZY, optional=false)
@@ -27,49 +33,59 @@ public class Bankaccount implements Serializable{
     @Column(nullable = false, unique = true)
     @NaturalId
     @Id
-    private Long accountnumber;
+    private Long accountNumber;
 
-    @Column(nullable = false, unique = false)
-    private Float balance;
+    @Transient
+    private static BankAccountService bankAccountService;
 
 
     // ----------------------------------------------------------------------------------
-    //  Constructor
+    //  Konstrutoren
     // ----------------------------------------------------------------------------------
-    public Bankaccount(Customer customer, Long accountnumber, Float balance){
-        super();
+
+    public Bankaccount() { }
+
+    public Bankaccount(final Customer customer, final Long accountNumber)
+    {
         this.customer = customer;
-        this.accountnumber = accountnumber;
-        this.balance = balance;
-
+        this.accountNumber = accountNumber;
     }
 
-    protected Bankaccount() {
+    @PostConstruct
+    public void init() {
+        System.out.println("Initializing Bankaccount as [" + Bankaccount.bankAccountService + "]");
     }
+
+
     // ----------------------------------------------------------------------------------
     //  Getter
     // ----------------------------------------------------------------------------------
+
     public Customer getCustomer() { return  customer;}
 
-    public Long getAccountnumber() {
-        return accountnumber;
+    public Long getAccountNumber() {
+        return accountNumber;
     }
 
     public Float getBalance() {
-        return balance;
+        return bankAccountService.getBalance(getAccountNumber());
     }
+
 
     // ----------------------------------------------------------------------------------
     //  Setter
     // ----------------------------------------------------------------------------------
+
     public void setCustomer(Customer customer) { this.customer = customer;}
 
-    public void setAccountnumber(Long accountnumber) {
-        this.accountnumber = accountnumber;
+    public void setAccountNumber(Long accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public void setBalance(Float balance) {
-        this.balance = balance;
+    @Autowired
+    public void setBankAccountService(BankAccountService bankAccountService)
+    {
+        Bankaccount.bankAccountService = bankAccountService;
     }
 
     // ----------------------------------------------------------------------------------
@@ -79,8 +95,7 @@ public class Bankaccount implements Serializable{
     @Override
     public String toString() {
         return "Bankaccount{" +
-                "accountnumber=" + accountnumber +
-                ", balance=" + balance +
+                "accountNumber=" + accountNumber +
                 '}';
     }
 
@@ -92,13 +107,13 @@ public class Bankaccount implements Serializable{
 
         Bankaccount that = (Bankaccount) o;
 
-        return accountnumber != null ? accountnumber.equals(that.accountnumber) : that.accountnumber == null;
+        return accountNumber != null ? accountNumber.equals(that.accountNumber) : that.accountNumber == null;
 
     }
 
     @Override
     public int hashCode()
     {
-        return accountnumber != null ? accountnumber.hashCode() : 0;
+        return accountNumber != null ? accountNumber.hashCode() : 0;
     }
 }

@@ -1,63 +1,49 @@
-package edu.hm.bugcoin.domain;
+package edu.hm.bugcoin.task;
 /*
- * Projekt: bugcoin
+ * Projekt: software
  * Autor: Maximilian Pachl
- * 2016-10-17 12:35
+ * 2016-10-18 17:05
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import edu.hm.bugcoin.service.BankAccountService;
+import edu.hm.bugcoin.service.CustomerService;
+import edu.hm.bugcoin.service.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- */
-@Entity
-public class Transaction implements Serializable
+@Component
+public class TaskWorker extends Thread
 {
 
     // ----------------------------------------------------------------------------------
     //  Konstanten
     // ----------------------------------------------------------------------------------
 
-    private static final long serialVersionUID = 1L;
-
 
     // ----------------------------------------------------------------------------------
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    private final List<Task> tasks = new ArrayList<>();
+    private boolean running = true;
 
-    @ManyToOne
-    private Bankaccount sourceAccount;
-
-    @ManyToOne
-    private Bankaccount targetAccount;
-
-    @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private Float amount;
+    @Autowired CustomerService customerService;
+    @Autowired BankAccountService bankAccountService;
+    @Autowired TransactionRepository transactionRepository;
 
 
     // ----------------------------------------------------------------------------------
     //  Konstruktoren
     // ----------------------------------------------------------------------------------
 
-    public Transaction() { }
-
-    public Transaction(Bankaccount sourceAccount, Bankaccount targetAccount, String description, Float amount)
+    public TaskWorker()
     {
-        this.sourceAccount = sourceAccount;
-        this.targetAccount = targetAccount;
-        this.description = description;
-        this.amount = amount;
+        setDaemon(true);
+        start();
     }
 
 
@@ -65,30 +51,16 @@ public class Transaction implements Serializable
     //  Getter
     // ----------------------------------------------------------------------------------
 
-    public Bankaccount getSourceAccount()
-    {
-        return sourceAccount;
-    }
-
-    public Bankaccount getTargetAccount()
-    {
-        return targetAccount;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public Float getAmount()
-    {
-        return amount;
-    }
-
 
     // ----------------------------------------------------------------------------------
     //  Setter
     // ----------------------------------------------------------------------------------
+
+    public void terminate()
+    {
+        running = false;
+        tasks.notifyAll();
+    }
 
 
     // ----------------------------------------------------------------------------------
@@ -100,21 +72,43 @@ public class Transaction implements Serializable
     //  Aendernde Methoden
     // ----------------------------------------------------------------------------------
 
+    @Override public void run()
+    {
+        System.out.println("TaskWorker up and running");
+        while(running)
+        {
+            try
+            {
+                // wait for next command
+                if (tasks.size() == 0)
+                {
+                    synchronized (this)
+                    {
+                        this.wait();
+                    }
+                }
+
+                synchronized (this)
+                {
+                    tasks.get(0).exectue();
+                    tasks.remove(0);
+                }
+            } catch(final InterruptedException ignored) {}
+        }
+
+        System.out.println("Task worker failed!");
+    }
+
+    public synchronized void add(final Task task)
+    {
+        task.setup(bankAccountService, customerService, transactionRepository);
+        tasks.add(task);
+        this.notifyAll();
+    }
+
 
     // ----------------------------------------------------------------------------------
     //  Standardmethoden
     // ----------------------------------------------------------------------------------
 
-
-    @Override
-    public String toString()
-    {
-        return "Transaction{" +
-                "id=" + id +
-                ", sourceAccount=" + sourceAccount +
-                ", targetAccount=" + targetAccount +
-                ", description='" + description + '\'' +
-                ", amount=" + amount +
-                '}';
-    }
 }
