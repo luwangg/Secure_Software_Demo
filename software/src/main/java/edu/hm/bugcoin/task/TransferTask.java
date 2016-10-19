@@ -8,6 +8,9 @@ package edu.hm.bugcoin.task;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Transaction;
+import edu.hm.bugcoin.service.BankAccountService;
+import edu.hm.bugcoin.service.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.ExceptionTypeFilter;
 
@@ -15,7 +18,7 @@ import org.springframework.util.ExceptionTypeFilter;
 /**
  *
  */
-public class TransferTask extends Task
+public class TransferTask implements Task
 {
 
     // ----------------------------------------------------------------------------------
@@ -33,6 +36,9 @@ public class TransferTask extends Task
     private final long targetAccount;
     private final String description;
     private final float amount;
+
+    @Autowired BankAccountService bankAccountService;
+    @Autowired TransactionRepository transactionRepository;
 
 
     // ----------------------------------------------------------------------------------
@@ -67,15 +73,15 @@ public class TransferTask extends Task
     //  Aendernde Methoden
     // ----------------------------------------------------------------------------------
 
-    @Override public void exectue()
+    @Override public void execute()
     {
         Assert.isTrue(amount > 0, "amount must be positive");
 
         try
         {
             // find the bank accounts
-            final Bankaccount source = getBankAccountService().getAccount(sourceAccount);
-            final Bankaccount target = getBankAccountService().getAccount(targetAccount);
+            final Bankaccount source = bankAccountService.getAccount(sourceAccount);
+            final Bankaccount target = bankAccountService.getAccount(targetAccount);
 
             // validate existence of all accounts
             if (source == null || target == null)
@@ -86,7 +92,7 @@ public class TransferTask extends Task
                 throw new RuntimeException("source and target accounts are the same");
 
             // create the transaction in database
-            getTransactionRepository().saveAndFlush(
+            transactionRepository.saveAndFlush(
                     new Transaction(source, target, TRANSFER_PREFIX + description, amount));
 
             System.out.println("transferred " + amount + " from " + sourceAccount + " to " + targetAccount);

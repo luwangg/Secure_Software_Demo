@@ -9,7 +9,11 @@ package edu.hm.bugcoin.task;
 import edu.hm.bugcoin.service.BankAccountService;
 import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.service.TransactionRepository;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -34,6 +38,7 @@ public class TaskWorker extends Thread
     @Autowired CustomerService customerService;
     @Autowired BankAccountService bankAccountService;
     @Autowired TransactionRepository transactionRepository;
+    @Autowired ApplicationContext ctx;
 
 
     // ----------------------------------------------------------------------------------
@@ -90,7 +95,7 @@ public class TaskWorker extends Thread
 
                 synchronized (this)
                 {
-                    tasks.get(0).exectue();
+                    tasks.get(0).execute();
                     tasks.remove(0);
                 }
             } catch(final InterruptedException ignored) {}
@@ -101,7 +106,10 @@ public class TaskWorker extends Thread
 
     public synchronized void add(final Task task)
     {
-        task.setup(bankAccountService, customerService, transactionRepository);
+        // satisfy @Autowire members in the task
+        ctx.getAutowireCapableBeanFactory().autowireBeanProperties(
+                task, AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
+
         tasks.add(task);
         this.notifyAll();
     }
