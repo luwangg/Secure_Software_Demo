@@ -21,6 +21,9 @@ public class BankAccountServiceImpl implements BankAccountService
     //  Member variable
     // ----------------------------------------------------------------------------------
 
+    private final static long  ACCOUNT_NR_CUSTOMER_BEGIN = 200000;
+    private final static long  ACCOUNT_NR_VOUCHER = 100000;
+
     @Autowired private BankAccountRepository bankAccountRepository;
     @Autowired private TransactionRepository transactionRepository;
 
@@ -30,20 +33,38 @@ public class BankAccountServiceImpl implements BankAccountService
     // ----------------------------------------------------------------------------------
 
     @Override public long getNewAccountNr() {
-        return findMaxAccountNr() + 1;
+        long newAccountNr;
+        try {
+            newAccountNr = findMaxAccountNr();
+            if(newAccountNr == ACCOUNT_NR_VOUCHER){
+                newAccountNr = ACCOUNT_NR_CUSTOMER_BEGIN;
+            }else{
+                newAccountNr++;
+            }
+        } catch (NoAccountFoundException e) {
+            newAccountNr = ACCOUNT_NR_CUSTOMER_BEGIN;
+        }
+        return newAccountNr;
     }
 
-    private long findMaxAccountNr(){
-        List<Bankaccount> bankaccounts = bankAccountRepository.findAll();
-        long bankAccountNrMax = -1;
+    private long findMaxAccountNr() throws NoAccountFoundException {
+        List<Bankaccount> accounts = bankAccountRepository.findAll();
+        if(accounts == null){
+            throw new NoAccountFoundException();
+        }
+        final long INVALID_ACCOUNT_NR_FOR_SEARCH = -1;
+        long accountNrMax = INVALID_ACCOUNT_NR_FOR_SEARCH;
         long currentAccountNr;
-        for (Bankaccount bankAccount : bankaccounts) {
-            currentAccountNr = bankAccount.getAccountNumber();
-            if(currentAccountNr > bankAccountNrMax){
-                bankAccountNrMax = currentAccountNr;
+        for (Bankaccount account : accounts) {
+            currentAccountNr = account.getAccountNumber();
+            if(currentAccountNr > accountNrMax){
+                accountNrMax = currentAccountNr;
             }
         }
-        return bankAccountNrMax;
+        return accountNrMax;
+    }
+
+    private class NoAccountFoundException extends Exception {
     }
 
     @Override public Bankaccount getAccount(long accountNumber) {
@@ -69,6 +90,8 @@ public class BankAccountServiceImpl implements BankAccountService
 
         return balance;
     }
+
+
 
 
     // ----------------------------------------------------------------------------------
