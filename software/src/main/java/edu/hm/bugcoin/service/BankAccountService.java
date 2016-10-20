@@ -18,6 +18,8 @@ public interface BankAccountService {
 
     long getNewAccountNr();
 
+    long getAccountNrVoucher();
+
     Bankaccount getAccount(long accountNumber);
 
     float getBalance(long accountNumber);

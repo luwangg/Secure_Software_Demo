@@ -24,7 +24,7 @@
         <ul>
             <li><a href="/banking/transactions">Umsätze anzeigen</a></li>
             <li><a href="/banking/transfer">Überweisung</a></li>
-            <li class="active"><a href="/banking/coupon">Gutschein einlösen</a></li>
+            <li class="active"><a href="/banking/voucher">Gutschein einlösen</a></li>
         </ul>
     </div>
 
@@ -37,11 +37,26 @@
 
         <div class="title">Gutschein</div>
 
+        <div class="message" th:if="${message != null}" style="margin-top: 30px">
+            <p th:text="${message}" />
+        </div>
+
         <form method="post" action="" style="margin-top: 30px;">
             <table class="center">
                 <tr>
-                    <td align="right"><label for="code">Gutscheincode:</label></td>
-                    <td><input type="text" id="code" name="code" /></td>
+                    <td><label>Empfänger Konto:</label></td>
+                    <td>
+                        <select style="width: 150px;" onchange="window.location='?account=' + this.value">
+                            <option th:each="account : ${accounts}"
+                                    th:attr="value=${account.getAccountNumber()}, selected=${account.equals(selectedAccount) ? true : false}"
+                                    th:text="${account.getAccountNumber()}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><label for="voucherCode">Gutscheincode:</label></td>
+                    <td><input type="text" id="voucherCode" name="voucherCode" /></td>
                 </tr>
             </table>
             <br /><br />

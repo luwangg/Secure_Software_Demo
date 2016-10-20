@@ -95,18 +95,4 @@ public class BankingController
         tasks.add(new TransferTask(source, target, subject, amount));
         return "transfer";
     }
-
-    @RequestMapping(value = "/banking/coupon", method = RequestMethod.GET)
-    @ACL(ACL.Type.NORMAL)
-    public String coupon()
-    {
-        return "coupon";
-    }
-
-    @RequestMapping(value = "/banking/coupon", method = RequestMethod.POST)
-    @ACL(ACL.Type.NORMAL)
-    public String coupon(@RequestParam(value="code") final String code)
-    {
-        return "coupon";
-    }
 }

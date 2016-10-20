@@ -67,6 +67,11 @@ public class BankAccountServiceImpl implements BankAccountService
     private class NoAccountFoundException extends Exception {
     }
 
+    @Override
+    public long getAccountNrVoucher(){
+        return ACCOUNT_NR_VOUCHER;
+    }
+
     @Override public Bankaccount getAccount(long accountNumber) {
         return bankAccountRepository.findByAccountNumber(accountNumber);
     }
