@@ -46,7 +46,7 @@
                 <tr>
                     <td><label>Empfänger Konto:</label></td>
                     <td>
-                        <select style="width: 150px;" onchange="window.location='?account=' + this.value">
+                        <select name="account">
                             <option th:each="account : ${accounts}"
                                     th:attr="value=${account.getAccountNumber()}, selected=${account.equals(selectedAccount) ? true : false}"
                                     th:text="${account.getAccountNumber()}">

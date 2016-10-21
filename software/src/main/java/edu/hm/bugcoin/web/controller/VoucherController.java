@@ -8,9 +8,11 @@ package edu.hm.bugcoin.web.controller;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.Voucher;
 import edu.hm.bugcoin.service.BankAccountService;
 import edu.hm.bugcoin.service.CustomerService;
 import edu.hm.bugcoin.service.TransactionRepository;
+import edu.hm.bugcoin.service.VoucherRepository;
 import edu.hm.bugcoin.task.TaskWorker;
 import edu.hm.bugcoin.task.TransferTask;
 import edu.hm.bugcoin.web.auth.ACL;
@@ -37,7 +39,7 @@ public class VoucherController {
     @Autowired
     private BankAccountService bankAccountService;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private VoucherRepository voucherRepository;
     @Autowired
     private TaskWorker tasks;
 
@@ -60,20 +62,7 @@ public class VoucherController {
 
     @GetMapping("/banking/voucher")
     @ACL(ACL.Type.NORMAL)
-    public String voucher(@RequestParam(value = "account", required = false) final Integer account,
-                          @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
-                          final HttpSession session, final Model model) {
-        Bankaccount selectedAccount;
-        if (account == null)
-            selectedAccount = customerService.getBankAccounts(customer).get(0);
-        else
-            selectedAccount = bankAccountService.getAccount(account);
-
-        // make sure the account belongs to the authenticated user
-        if (selectedAccount == null || !selectedAccount.getCustomer().equals(customer))
-            selectedAccount = customerService.getBankAccounts(customer).get(0);
-
-        model.addAttribute("selectedAccount", selectedAccount);
+    public String voucher() {
         return "voucher";
     }
 
@@ -84,25 +73,39 @@ public class VoucherController {
                           @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
                           final Model model) {
 
-        long selectedAccountNr;
-        if(account == null)
-            selectedAccountNr = customerService.getBankAccounts(customer).get(0).getAccountNumber();
-        else
-            selectedAccountNr = account;
-
-        if(verifyVoucherCode(voucherCodeUserInput)){
-            tasks.add(new TransferTask(bankAccountService.getAccountNrVoucher(), selectedAccountNr, "voucher", 10.0f));
-        }else{
-            model.addAttribute("message", "Gutschein ist ungültig!");
+        Bankaccount selectedAccount;
+        if(account == null) {
+            selectedAccount = customerService.getBankAccounts(customer).get(0);
+        } else {
+            selectedAccount = bankAccountService.getAccount(account);
         }
 
+        model.addAttribute("selectedAccount", selectedAccount);
+
+        Voucher voucher = voucherRepository.findById(voucherCodeUserInput);
+        if(isVoucherValid(voucher)){
+            String description = "voucher id: " + voucher.getId();
+            tasks.add(new TransferTask(bankAccountService.getAccountNrVoucher(), selectedAccount.getAccountNumber(), description, voucher.getValue()));
+            voucher.setReedemed(true);
+        }else{
+            model.addAttribute("message", "Gutschein " + voucherCodeUserInput + " ist ungültig!");
+        }
         return "voucher";
     }
 
     // ----------------------------------------------------------------------------------
     // helper methods
     // ----------------------------------------------------------------------------------
-    private boolean verifyVoucherCode(final long voucherCode){
-        return true; //TODO
+    private boolean isVoucherValid(Voucher voucher){
+        boolean isValid = true;
+        if(voucher == null){
+            isValid =false;
+        }else{
+            if(voucher.isReedemed())
+                isValid = false;
+        }
+
+        return isValid;
     }
+
 }
