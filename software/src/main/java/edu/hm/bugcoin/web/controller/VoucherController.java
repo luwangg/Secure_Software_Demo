@@ -9,10 +9,7 @@ package edu.hm.bugcoin.web.controller;
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
 import edu.hm.bugcoin.domain.Voucher;
-import edu.hm.bugcoin.service.BankAccountService;
-import edu.hm.bugcoin.service.CustomerService;
-import edu.hm.bugcoin.service.TransactionRepository;
-import edu.hm.bugcoin.service.VoucherRepository;
+import edu.hm.bugcoin.service.*;
 import edu.hm.bugcoin.task.TaskWorker;
 import edu.hm.bugcoin.task.TransferTask;
 import edu.hm.bugcoin.web.auth.ACL;
@@ -39,7 +36,7 @@ public class VoucherController {
     @Autowired
     private BankAccountService bankAccountService;
     @Autowired
-    private VoucherRepository voucherRepository;
+    private VoucherService voucherService;
     @Autowired
     private TaskWorker tasks;
 
@@ -82,9 +79,9 @@ public class VoucherController {
 
         model.addAttribute("selectedAccount", selectedAccount);
 
-        Voucher voucher = voucherRepository.findById(voucherCodeUserInput);
+        Voucher voucher = voucherService.getVoucher(voucherCodeUserInput);
         if(isVoucherValid(voucher)){
-            String description = "voucher id: " + voucher.getId();
+            String description = "voucher code: " + voucher.getCode();
             tasks.add(new TransferTask(bankAccountService.getAccountNrVoucher(), selectedAccount.getAccountNumber(), description, voucher.getValue()));
             voucher.setReedemed(true);
         }else{
@@ -107,5 +104,6 @@ public class VoucherController {
 
         return isValid;
     }
+
 
 }

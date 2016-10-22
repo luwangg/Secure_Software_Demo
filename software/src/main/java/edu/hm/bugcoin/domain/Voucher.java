@@ -27,8 +27,8 @@ public class Voucher implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @Column(unique = true)
+    private Long code;
 
     @Column(nullable = false)
     private Float value;
@@ -43,8 +43,9 @@ public class Voucher implements Serializable{
 
     public Voucher() { }
 
-    public Voucher(final Float value, final Boolean isReedemed)
+    public Voucher(final Long code, final Float value, final Boolean isReedemed)
     {
+        this.code = code;
         this.value = value;
         this.isReedemed = isReedemed;
     }
@@ -53,8 +54,8 @@ public class Voucher implements Serializable{
     // ----------------------------------------------------------------------------------
     //  Getter
     // ----------------------------------------------------------------------------------
-    public Long getId() {
-        return id;
+    public Long getCode() {
+        return code;
     }
 
     public Float getValue() {
@@ -68,6 +69,10 @@ public class Voucher implements Serializable{
     // ----------------------------------------------------------------------------------
     //  Setter
     // ----------------------------------------------------------------------------------
+    public void setCode(final Long code) {
+        this.code = code;
+    }
+
     public void setValue(final Float value) {
         this.value = value;
     }
@@ -84,7 +89,7 @@ public class Voucher implements Serializable{
     @Override
     public String toString() {
         return "Voucher{" +
-                "id=" + id +
+                "code=" + code +
                 ", value=" + value +
                 ", isReedemed=" + isReedemed +
                 '}';

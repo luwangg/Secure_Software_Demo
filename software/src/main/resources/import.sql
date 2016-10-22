@@ -17,7 +17,7 @@ INSERT INTO customer(nickname, lastname, firstname, street, postCode, city, emai
 INSERT INTO bankaccount(customer_id, account_number) VALUES (3, 100000)
 
 -- vouchers
-INSERT INTO voucher(value, isreedemed) VALUES ('10', 'false')
+INSERT INTO voucher(code, value, isreedemed) VALUES ('1234567890', '10', 'false')
 
 -- initial account balance (voucher)
 INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (100000, 516842, 'GUTSCHEIN\nCode: 902340vn8e7wr98n23hr', 500.00)
