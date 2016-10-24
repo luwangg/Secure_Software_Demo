@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>BugCoin Onlinebanking</title>
     <link rel="stylesheet" href="/style/main.css">
-	<script type="text/javascript" src="/js/logout.js"></script>
-  </head>
-  <body>
-    <div id="header" class="center">
+    <script type="text/javascript" src="/js/logout.js"></script>
+</head>
+<body>
+<div id="header" class="center">
+</div>
+<div id="container" class="center">
+    <!-- top navigation -->
+    <div id="nav-top">
+        <ul>
+            <li class="active"><a href="/admin/userManagement">Administration</a></li>
+        </ul>
     </div>
-    <div id="container" class="center">
-    	<!-- top navigation -->
-    	<div id="nav-top">
-    		<ul>
-    			<li class="active"><a href="/admin/userManagement">Administration</a></li>
-    		</ul>
-    	</div>
 
-    	<!-- left side navigation menu -->
-    	<div id="nav-left" class="sidenav">
-    		<div class="title">Benutzer Verwaltung</div>
-    		<ul>
-				<li class="active"><a href="/admin/userManagement">Benutzer Verwaltung</a></li>
-    		</ul>
-		</div>
+    <!-- left side navigation menu -->
+    <div id="nav-left" class="sidenav">
+        <div class="title">Benutzer Verwaltung</div>
+        <ul>
+            <li class="active"><a href="/admin/userManagement">Benutzer Verwaltung</a></li>
+        </ul>
+    </div>
 
-    	<!-- content in the center -->
-    	<div id="content">
-    		<h1>Hallo Admin,</h1>
-    		Sie waren zuletzt angemeldet am 18.09.2016 um 21:54 Uhr.<br />
-		    <br /><br />
+    <!-- content in the center -->
+    <div id="content">
+        <h1>Hallo Admin,</h1>
+        Sie waren zuletzt angemeldet am 18.09.2016 um 21:54 Uhr.<br/>
+        <br/><br/>
 
-			<div class="title">Filter</div>
-            <form>
-			<table style="width: 100%;">
+        <div class="title">Filter</div>
+        <form>
+            <table style="width: 100%;">
                 <tr>
                     <td><label>Benutzer Status:</label></td>
                     <td>
@@ -43,35 +43,51 @@
                             <option>ADMIN</option>
                             <option>SYSTEM</option>
                         </select>
-					</td>
                     </td>
                 </tr>
-			</table>
-            </form><br />
+            </table>
+        </form>
+        <br/><br/>
 
-			<div class="title">Benutzer</div><br/>
-			<table>
-				<tr>
-                    <th>Benutzername</th>
-					<th>Email</th>
-                    <th>Konten</th>
-                    <th>Status</th>
-				</tr>
-				<tr th:each="customer : ${customers}"
-					th:with="user=${customer}">
-					<td>
-						<span th:text="${user.getNickname()}"></span>
-						<span th:text="${user.getEmail()}"></span><br />
-						<span th:text="${user.getUserState()}"></span>
-					</td>
-				</tr>
+        <div>
+            <div class="title">Aktion</div>
+            <form method="post">
+                <input type="radio" id="activate" name="action" value="activate"><label for="activate">Benutzer
+                freischalten</label>
+                <input type="radio" id="deactivate" name="action" value="deactivate"><label for="deactivate">Benutzer
+                sperren</label><br/><br/>
+                <input type="radio" id="upgrade" name="action" value="upgrade"><label for="upgrade">Benutzer
+                upgrade</label>
+                <input type="radio" id="downgrade" name="action" value="downgrade"><label for="downgrade">Benutzer
+                downgrade</label><br/><br/>
+                <input type="submit" value="Aktion ausführen">
+
+                <br/><br/>
+                <br/><br/>
 
 
-			</table>
-    	</div>
-
-    	<!-- right side info-box -->
-    	<div id="nav-right" class="sidenav" th:include="layout/sidebar"></div>
+                <div class="title">Benutzer</div>
+                <table>
+                    <tr>
+                        <th>Auswahl</th>
+                        <th>Benutzername</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr th:each="customer : ${customers}"
+                        th:with="user=${customer}">
+                        <td><input type='radio' name="customerCheckBox" th:value="${user}"/></td>
+                        <td><span th:text="${user.getNickname()}"></span></td>
+                        <td><span th:text="${user.getEmail()}"></span></td>
+                        <td><span th:text="${user.getUserState()}"></span></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </div>
-  </body>
+
+    <!-- right side info-box -->
+    <div id="nav-right" class="sidenav" th:include="layout/sidebarAdmin"></div>
+</div>
+</body>
 </html>

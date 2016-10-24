@@ -18,22 +18,22 @@ import javax.servlet.http.HttpSession;
  *
  */
 @Controller
-public class AdminController
-{
+public class AdminController {
 
     // ----------------------------------------------------------------------------------
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    @Autowired private CustomerService customerService;
+    @Autowired
+    private CustomerService customerService;
 
     // ----------------------------------------------------------------------------------
     //  attributes
     // ----------------------------------------------------------------------------------
-    @ModelAttribute public void attrs(final HttpSession session, final Model model) {
-        final Customer customer = (Customer)session.getAttribute(SessionKey.AUTH_USER);
+    @ModelAttribute
+    public void attrs(final HttpSession session, final Model model) {
+        final Customer customer = (Customer) session.getAttribute(SessionKey.AUTH_USER);
         model.addAttribute("me", customer);
-        model.addAttribute("accounts", customerService.getBankAccounts(customer));
     }
 
     // ----------------------------------------------------------------------------------
@@ -42,14 +42,13 @@ public class AdminController
 
     @RequestMapping("/admin/userManagement")
     @ACL(ACL.Type.NORMAL)
-    public String transactions(@RequestParam(value = "userState", required = false) final UserState userState,
-                               @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
-                               final HttpSession session, final Model model)
-    {
+    public String showUsers(@RequestParam(value = "userState", required = false) final UserState userState,
+                            @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
+                            final HttpSession session, final Model model) {
         UserState selectedUserState;
-        if(userState == null){
+        if (userState == null) {
             selectedUserState = UserState.USER;
-        }else{
+        } else {
             selectedUserState = userState;
         }
         model.addAttribute("customers", customerService.getCustomers(selectedUserState));
@@ -57,13 +56,25 @@ public class AdminController
         return "userManagement";
     }
 
-    /**
-    @GetMapping("/admin/userManagement")
+    @RequestMapping(value = "/admin/userManagement", method = RequestMethod.POST)
     @ACL(ACL.Type.NORMAL)
-    public String userManagement()
-    {
+    public String alterUser(@RequestParam(value = "userState", required = false) final UserState userState,
+                            @RequestParam("action") final String action,
+                            @RequestParam("customerCheckBox") final String customerCheckBox,
+                            @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
+                            final HttpSession session, final Model model) {
+        UserState selectedUserState;
+        if (userState == null) {
+            selectedUserState = UserState.USER;
+        } else {
+            selectedUserState = userState;
+        }
+        model.addAttribute("customers", customerService.getCustomers(selectedUserState));
+
+        System.out.println("action: " + action);
+        System.out.println("selected customer: " + customerCheckBox);
+
         return "userManagement";
     }
 
-    **/
 }
