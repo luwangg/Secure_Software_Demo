@@ -1,7 +1,8 @@
 package edu.hm.bugcoin.service.Customer;
 
 
-import edu.hm.bugcoin.domain.UserState;
+import edu.hm.bugcoin.domain.CustomerLevel;
+import edu.hm.bugcoin.domain.CustomerState;
 import org.springframework.data.repository.Repository;
 import edu.hm.bugcoin.domain.Customer;
 
@@ -28,8 +29,9 @@ public interface CustomerRepository extends Repository<Customer, Long>{
 
     List<Customer> findByLastname(String lastname);
 
-    List<Customer> findByUserState(UserState userState);
+    List<Customer> findByLevel(CustomerLevel level);
 
+    List<Customer> findByState(CustomerState state);
 
     // ----------------------------------------------------------------------------------
     //  Update / Add

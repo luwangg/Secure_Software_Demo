@@ -7,7 +7,7 @@ package edu.hm.bugcoin.web.controller;
  */
 
 import edu.hm.bugcoin.domain.Customer;
-import edu.hm.bugcoin.domain.UserState;
+import edu.hm.bugcoin.domain.CustomerLevel;
 import edu.hm.bugcoin.security.CryptoUserData;
 import edu.hm.bugcoin.security.CryptoUserDataBcrypt;
 import edu.hm.bugcoin.service.Customer.CustomerService;
@@ -103,6 +103,6 @@ public class LoginController
     }
 
     private boolean isAdmin(Customer customer){
-        return customer.getUserState() == UserState.ADMIN;
+        return customer.getLevel() == CustomerLevel.ADMIN;
     }
 }

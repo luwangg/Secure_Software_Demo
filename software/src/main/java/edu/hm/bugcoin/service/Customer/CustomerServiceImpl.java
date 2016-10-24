@@ -1,7 +1,8 @@
 package edu.hm.bugcoin.service.Customer;
 
 import edu.hm.bugcoin.domain.Bankaccount;
-import edu.hm.bugcoin.domain.UserState;
+import edu.hm.bugcoin.domain.CustomerLevel;
+import edu.hm.bugcoin.domain.CustomerState;
 import edu.hm.bugcoin.service.BankAccount.BankAccountRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Component
 @Transactional
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
     // ----------------------------------------------------------------------------------
     //  Member variable
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService{
     // ----------------------------------------------------------------------------------
     //  Constructor
     // ----------------------------------------------------------------------------------
-    public CustomerServiceImpl(CustomerRepository customerRepository, BankAccountRepository bankAccountRepository){
+    public CustomerServiceImpl(CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {
         this.customerRepository = customerRepository;
         this.bankAccountRepository = bankAccountRepository;
     }
@@ -49,9 +50,15 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public List<Customer> getCustomers(UserState userState) {
-        Assert.notNull(userState, "UserState must not be null");
-        return customerRepository.findByUserState(userState);
+    public List<Customer> getCustomers(CustomerLevel level) {
+        Assert.notNull(level, "(Customer-)Level must not be null");
+        return customerRepository.findByLevel(level);
+    }
+
+    @Override
+    public List<Customer> getCustomers(CustomerState state) {
+        Assert.notNull(state, "(Customer-)State must not be null");
+        return customerRepository.findByState(state);
     }
 
     @Override
@@ -72,18 +79,41 @@ public class CustomerServiceImpl implements CustomerService{
     //  Update / Add
     // ----------------------------------------------------------------------------------
     @Override
+    public Customer addCustomer(final Customer customer) {
+        Assert.notNull(customer, "customer must not be null!");
+        return customerRepository.saveAndFlush(customer);
+    }
+
+    @Override
+    public Customer setCustomerLevel(Customer customer, CustomerLevel level) throws IllegalCustomerLevelException {
+        Assert.notNull(customer, "customer must not be null!");
+        Assert.notNull(level, "level must not be null!");
+        Customer returnCustomer = null;
+        if (level == CustomerLevel.USER || level == CustomerLevel.PRO_USER) {
+            customer.setLevel(level);
+            returnCustomer = customerRepository.saveAndFlush(customer);
+        } else {
+            throw new IllegalCustomerLevelException("Valid values are only CustomerLevel.USER and CustomerLevel.PRO_USER");  //ADMIN and SYSTEM upgrades are forbidden.
+        }
+        return returnCustomer;
+    }
+
+    @Override
+    public Customer setCustomerState(Customer customer, CustomerState state) {
+        Assert.notNull(customer, "customer must not be null!");
+        Assert.notNull(state, "state must not be null!");
+        customer.setState(state);
+        return customerRepository.saveAndFlush(customer);
+    }
+
+
+    @Override
     public Bankaccount addBankAccount(final Customer customer, final long accountNumber) {
         Assert.notNull(customer, "Customer must not be null");
         Assert.notNull(accountNumber, "Accountnumber must not be null");
         final float INITIAL_ACCOUNT_BALANCE = 0;
         Bankaccount bankaccount = new Bankaccount(customer, accountNumber);
         return bankAccountRepository.saveAndFlush(bankaccount);
-    }
-
-    @Override public Customer addCustomer(final Customer customer)
-    {
-        Assert.notNull(customer, "customer must not be null!");
-        return customerRepository.saveAndFlush(customer);
     }
 
     // ----------------------------------------------------------------------------------

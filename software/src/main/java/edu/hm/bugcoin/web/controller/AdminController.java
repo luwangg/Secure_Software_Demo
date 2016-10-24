@@ -1,9 +1,9 @@
 package edu.hm.bugcoin.web.controller;
 
 
-import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
-import edu.hm.bugcoin.domain.UserState;
+import edu.hm.bugcoin.domain.CustomerLevel;
+import edu.hm.bugcoin.domain.CustomerState;
 import edu.hm.bugcoin.service.Customer.CustomerService;
 import edu.hm.bugcoin.web.auth.ACL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,8 @@ public class AdminController {
     // ----------------------------------------------------------------------------------
     @ModelAttribute
     public void attrs(final HttpSession session, final Model model) {
-        final Customer customer = (Customer) session.getAttribute(SessionKey.AUTH_USER);
-        model.addAttribute("me", customer);
+        final Customer admin = (Customer) session.getAttribute(SessionKey.AUTH_USER);
+        model.addAttribute("me", admin);
     }
 
     // ----------------------------------------------------------------------------------
@@ -42,39 +42,70 @@ public class AdminController {
 
     @RequestMapping("/admin/userManagement")
     @ACL(ACL.Type.NORMAL)
-    public String showUsers(@RequestParam(value = "userState", required = false) final UserState userState,
-                            @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
+    public String showUsers(@RequestParam(value = "customerLevel", required = false) final CustomerLevel customerLevel,
+                            @SessionAttribute(SessionKey.AUTH_USER) Customer admin,
                             final HttpSession session, final Model model) {
-        UserState selectedUserState;
-        if (userState == null) {
-            selectedUserState = UserState.USER;
+        CustomerLevel selectedCustomerLevel;
+        if (customerLevel == null) {
+            selectedCustomerLevel = CustomerLevel.USER;
         } else {
-            selectedUserState = userState;
+            selectedCustomerLevel = customerLevel;
         }
-        model.addAttribute("customers", customerService.getCustomers(selectedUserState));
+        model.addAttribute("customers", customerService.getCustomers(selectedCustomerLevel));
 
         return "userManagement";
     }
 
     @RequestMapping(value = "/admin/userManagement", method = RequestMethod.POST)
     @ACL(ACL.Type.NORMAL)
-    public String alterUser(@RequestParam(value = "userState", required = false) final UserState userState,
+    public String alterUser(@RequestParam(value = "customerLevel", required = false) final CustomerLevel customerLevel,
                             @RequestParam("action") final String action,
                             @RequestParam("customerCheckBox") final String customerCheckBox,
-                            @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
+                            @SessionAttribute(SessionKey.AUTH_USER) Customer admin,
                             final HttpSession session, final Model model) {
-        UserState selectedUserState;
-        if (userState == null) {
-            selectedUserState = UserState.USER;
+        CustomerLevel selectedCustomerLevel;
+        if (customerLevel == null) {
+            selectedCustomerLevel = CustomerLevel.USER;
         } else {
-            selectedUserState = userState;
+            selectedCustomerLevel = customerLevel;
         }
-        model.addAttribute("customers", customerService.getCustomers(selectedUserState));
+        model.addAttribute("customers", customerService.getCustomers(selectedCustomerLevel));
 
-        System.out.println("action: " + action);
-        System.out.println("selected customer: " + customerCheckBox);
+        Customer selectedCustomer = customerService.getCustomer(customerCheckBox);
+
+        if(action == null || selectedCustomer == null){
+            model.addAttribute("message", "Keine Aktion oder keinen User ausgewählt!");
+        }else{
+            try {
+                doActionOnCustomer(selectedCustomer, action);
+            } catch (CustomerService.IllegalCustomerLevelException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         return "userManagement";
     }
 
+    // ----------------------------------------------------------------------------------
+    // private helper methods
+    // ----------------------------------------------------------------------------------
+
+    private void doActionOnCustomer(Customer customer, String action) throws CustomerService.IllegalCustomerLevelException, IllegalArgumentException {
+        switch (action){
+            case "activate":
+                customerService.setCustomerState(customer, CustomerState.ACTIVE);
+                break;
+            case "deactivate":
+                customerService.setCustomerState(customer, CustomerState.INACTIVE);
+                break;
+            case "upgrade":
+                customerService.setCustomerLevel(customer, CustomerLevel.PRO_USER);
+                break;
+            case "downgrade":
+                customerService.setCustomerLevel(customer, CustomerLevel.USER);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid action: " + action);
+        }
+    }
 }

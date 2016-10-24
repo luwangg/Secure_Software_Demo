@@ -6,7 +6,8 @@ package edu.hm.bugcoin.service.Customer;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
-import edu.hm.bugcoin.domain.UserState;
+import edu.hm.bugcoin.domain.CustomerLevel;
+import edu.hm.bugcoin.domain.CustomerState;
 
 import java.util.List;
 
@@ -24,7 +25,9 @@ public interface CustomerService {
 
     List<Customer> getCustomers(String lastname, String firstname);
 
-    List<Customer> getCustomers(UserState userState);
+    List<Customer> getCustomers(CustomerLevel level);
+
+    List<Customer> getCustomers(CustomerState state);
 
     List<Bankaccount> getBankAccounts(String nickname);
 
@@ -36,6 +39,15 @@ public interface CustomerService {
     // ----------------------------------------------------------------------------------
 
     Customer addCustomer(Customer customer);
+
+    Customer setCustomerLevel(Customer customer, CustomerLevel level) throws IllegalCustomerLevelException;
+
+    public class IllegalCustomerLevelException extends Exception {
+        public IllegalCustomerLevelException(String s) {
+        }
+    }
+
+    Customer setCustomerState(Customer customer, CustomerState state);
 
     Bankaccount addBankAccount(Customer customer, long accountNumber);
 
