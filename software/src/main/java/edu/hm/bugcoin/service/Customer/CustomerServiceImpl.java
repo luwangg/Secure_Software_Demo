@@ -89,13 +89,34 @@ public class CustomerServiceImpl implements CustomerService {
         Assert.notNull(customer, "customer must not be null!");
         Assert.notNull(level, "level must not be null!");
         Customer returnCustomer = null;
-        if (level == CustomerLevel.USER || level == CustomerLevel.PRO_USER) {
+
+        if (permitCustomerLevelModification(customer.getLevel(), level)) {
             customer.setLevel(level);
             returnCustomer = customerRepository.saveAndFlush(customer);
         } else {
-            throw new IllegalCustomerLevelException("Valid values are only CustomerLevel.USER and CustomerLevel.PRO_USER");  //ADMIN and SYSTEM upgrades are forbidden.
+            throw new IllegalCustomerLevelException("Valid values are only CustomerLevel.USER and CustomerLevel.PRO_USER.\n" +
+                    "CustomerLevel.ADMIN and CustomerLevel.SYSTEM down- and upgrades are forbidden.");
         }
+
         return returnCustomer;
+    }
+
+    /**
+     * Valid values are only CustomerLevel.USER and CustomerLevel.PRO_USER.
+     * CustomerLevel.ADMIN and CustomerLevel.SYSTEM down- and upgrades are forbidden.
+     *
+     * @param currentLevel
+     * @param levelToChangeTo
+     * @return true if permitted, else false.
+     */
+    private boolean permitCustomerLevelModification(CustomerLevel currentLevel, CustomerLevel levelToChangeTo) {
+        boolean isPermitted = true;
+        if (currentLevel == CustomerLevel.ADMIN || currentLevel == CustomerLevel.SYSTEM) {
+            isPermitted = false;
+        }else if(levelToChangeTo != CustomerLevel.USER && levelToChangeTo != CustomerLevel.PRO_USER) {
+            isPermitted = false;
+        }
+        return isPermitted;
     }
 
     @Override

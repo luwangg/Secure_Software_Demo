@@ -43,7 +43,8 @@ public interface CustomerService {
     Customer setCustomerLevel(Customer customer, CustomerLevel level) throws IllegalCustomerLevelException;
 
     public class IllegalCustomerLevelException extends Exception {
-        public IllegalCustomerLevelException(String s) {
+        public IllegalCustomerLevelException(String message) {
+            super(message);
         }
     }
 

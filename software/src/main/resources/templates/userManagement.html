@@ -32,7 +32,8 @@
         <br/><br/>
 
         <div class="message" th:if="${message != null}" style="margin-top: 30px">
-            <p th:text="${message}" />
+            <p th:text="${message}"/>
+            <br/><br/>
         </div>
 
         <div class="title">Filter</div>
@@ -42,10 +43,11 @@
                     <td><label>Benutzer Level:</label></td>
                     <td>
                         <select style="width: 150px;" onchange="window.location='?level=' + this.value">
-                            <option>USER</option>
-                            <option>PRO_USER</option>
-                            <option>ADMIN</option>
-                            <option>SYSTEM</option>
+                            <option
+                                    th:each="level : ${levels}"
+                                    th:attr="value=${level}, selected=${level.equals(selectedLevel) ? true : false}"
+                                    th:text="${level}">
+                            </option>
                         </select>
                     </td>
                 </tr>
@@ -81,7 +83,7 @@
                     </tr>
                     <tr th:each="customer : ${customers}"
                         th:with="user=${customer}">
-                        <td><input type='radio' name="customerCheckBox" th:value="${user.getNickname()}"/></td>
+                        <td><input type='radio' name="customerNickname" th:value="${user.getNickname()}"/></td>
                         <td><span th:text="${user.getNickname()}"></span></td>
                         <td><span th:text="${user.getEmail()}"></span></td>
                         <td><span th:text="${user.getLevel()}"></span></td>
