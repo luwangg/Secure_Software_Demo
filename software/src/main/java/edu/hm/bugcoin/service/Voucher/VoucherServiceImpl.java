@@ -1,4 +1,4 @@
-package edu.hm.bugcoin.service;
+package edu.hm.bugcoin.service.Voucher;
 /*
  * Created by shreaker on 18.10.16.
  */
@@ -7,9 +7,9 @@ import edu.hm.bugcoin.domain.Voucher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -36,11 +36,24 @@ public class VoucherServiceImpl implements VoucherService {
         return voucherRepository.findAll();
     }
 
+
+    @Override
+    public boolean isVoucherValid(Voucher voucher){
+        boolean isValid = true;
+        if(voucher == null){
+            isValid =false;
+        }else{
+            if(voucher.isReedemed())
+                isValid = false;
+        }
+        return isValid;
+    }
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
     @Override
     public Voucher addNewVoucher(float value) {
+        Assert.notNull(value, "Value must not be null");
         long newVoucherCode = getNewVoucherCode();
         return voucherRepository.saveAndFlush(new Voucher(newVoucherCode, value, false));
     }

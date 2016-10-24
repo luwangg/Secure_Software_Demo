@@ -1,40 +1,44 @@
-package edu.hm.bugcoin.service;
-
-
-import edu.hm.bugcoin.domain.Bankaccount;
-import edu.hm.bugcoin.domain.Customer;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
-
-import java.util.List;
-
-/**
+package edu.hm.bugcoin.service.Customer;
+/*
  * Created by shreaker on 14.10.16.
  * See: http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods
  */
 
+import edu.hm.bugcoin.domain.Bankaccount;
+import edu.hm.bugcoin.domain.Customer;
+import java.util.List;
+
+
 /**
- * Queries related to the Bankaccount-Table.
+ * Interface to access the Customer- and Bankaccount-Interface in an user friendly way.
  */
-public interface BankAccountRepository extends Repository<Bankaccount, Long>{
+public interface CustomerService {
 
     // ----------------------------------------------------------------------------------
     //  Request
     // ----------------------------------------------------------------------------------
-    Bankaccount findByAccountNumber(long accountNumber);
 
-    List<Bankaccount> findAll();
+    Customer getCustomer(String nickname);
 
-    List<Bankaccount> findByCustomer(Customer customer);
+    List<Customer> getCustomers(String lastname, String firstname);
+
+    List<Bankaccount> getBankAccounts(String nickname);
+
+    List<Bankaccount> getBankAccounts(Customer customer);
+
 
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
-    Bankaccount saveAndFlush(Bankaccount account);
+
+    Customer addCustomer(Customer customer);
+
+    Bankaccount addBankAccount(Customer customer, long accountNumber);
 
 
     // ----------------------------------------------------------------------------------
     //  Delete
     // ----------------------------------------------------------------------------------
+
 
 }

@@ -6,13 +6,11 @@ package edu.hm.bugcoin.web.controller;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
-import edu.hm.bugcoin.Application;
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
-import edu.hm.bugcoin.service.BankAccountRepository;
-import edu.hm.bugcoin.service.BankAccountService;
-import edu.hm.bugcoin.service.CustomerService;
-import edu.hm.bugcoin.service.TransactionRepository;
+import edu.hm.bugcoin.service.BankAccount.BankAccountService;
+import edu.hm.bugcoin.service.Customer.CustomerService;
+import edu.hm.bugcoin.service.Transaction.TransactionRepository;
 import edu.hm.bugcoin.task.TaskWorker;
 import edu.hm.bugcoin.task.TransferTask;
 import edu.hm.bugcoin.web.auth.ACL;

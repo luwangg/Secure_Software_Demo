@@ -1,44 +1,39 @@
-package edu.hm.bugcoin.service;
-/*
+package edu.hm.bugcoin.service.Voucher;
+
+
+import edu.hm.bugcoin.domain.Bankaccount;
+import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.Voucher;
+import org.springframework.data.repository.Repository;
+
+import java.util.List;
+
+/**
  * Created by shreaker on 14.10.16.
  * See: http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods
  */
 
-import edu.hm.bugcoin.domain.Bankaccount;
-import edu.hm.bugcoin.domain.Customer;
-import java.util.List;
-
-
 /**
- * Interface to access the Customer- and Bankaccount-Interface in an user friendly way.
+ * Queries related to the Voucher-Table.
  */
-public interface CustomerService {
+public interface VoucherRepository extends Repository<Voucher, Long>{
 
     // ----------------------------------------------------------------------------------
     //  Request
     // ----------------------------------------------------------------------------------
+    Voucher findByCode(long code);
 
-    Customer getCustomer(String nickname);
-
-    List<Customer> getCustomers(String lastname, String firstname);
-
-    List<Bankaccount> getBankAccounts(String nickname);
-
-    List<Bankaccount> getBankAccounts(Customer customer);
+    List<Voucher> findAll();
 
 
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
-
-    Customer addCustomer(Customer customer);
-
-    Bankaccount addBankAccount(Customer customer, long accountNumber);
+    Voucher saveAndFlush(Voucher voucher);
 
 
     // ----------------------------------------------------------------------------------
     //  Delete
     // ----------------------------------------------------------------------------------
-
 
 }

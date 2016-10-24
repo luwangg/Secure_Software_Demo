@@ -1,10 +1,11 @@
-package edu.hm.bugcoin.service;
+package edu.hm.bugcoin.service.BankAccount;
 /*
  * Created by shreaker on 18.10.16.
  */
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Transaction;
+import edu.hm.bugcoin.service.Transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

@@ -8,11 +8,10 @@ package edu.hm.bugcoin.task;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Transaction;
-import edu.hm.bugcoin.service.BankAccountService;
-import edu.hm.bugcoin.service.TransactionRepository;
+import edu.hm.bugcoin.service.BankAccount.BankAccountService;
+import edu.hm.bugcoin.service.Transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.util.ExceptionTypeFilter;
 
 
 /**

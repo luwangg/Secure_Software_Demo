@@ -3,10 +3,9 @@ package edu.hm.bugcoin.domain;
  * Created by shreaker on 14.10.16.
  */
 
-import edu.hm.bugcoin.service.BankAccountService;
+import edu.hm.bugcoin.service.BankAccount.BankAccountService;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

@@ -6,14 +6,12 @@ package edu.hm.bugcoin.task;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
-import edu.hm.bugcoin.service.BankAccountService;
-import edu.hm.bugcoin.service.CustomerService;
-import edu.hm.bugcoin.service.TransactionRepository;
-import org.springframework.beans.BeansException;
+import edu.hm.bugcoin.service.BankAccount.BankAccountService;
+import edu.hm.bugcoin.service.Customer.CustomerService;
+import edu.hm.bugcoin.service.Transaction.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

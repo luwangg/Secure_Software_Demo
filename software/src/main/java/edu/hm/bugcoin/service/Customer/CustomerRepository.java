@@ -1,10 +1,8 @@
-package edu.hm.bugcoin.service;
+package edu.hm.bugcoin.service.Customer;
 
 
-import edu.hm.bugcoin.domain.Bankaccount;
-import edu.hm.bugcoin.domain.Customer;
-import edu.hm.bugcoin.domain.Voucher;
 import org.springframework.data.repository.Repository;
+import edu.hm.bugcoin.domain.Customer;
 
 import java.util.List;
 
@@ -14,26 +12,32 @@ import java.util.List;
  */
 
 /**
- * Queries related to the Voucher-Table.
+ * Queries related to the Customer-Table.
  */
-public interface VoucherRepository extends Repository<Voucher, Long>{
+public interface CustomerRepository extends Repository<Customer, Long>{
 
     // ----------------------------------------------------------------------------------
     //  Request
     // ----------------------------------------------------------------------------------
-    Voucher findByCode(long code);
+    Customer findByNickname(String nickname);
 
-    List<Voucher> findAll();
+    Customer findByEmail(String email);
+
+    List<Customer> findByLastnameAndFirstname(String lastname, String firstname);
+
+    List<Customer> findByLastname(String lastname);
 
 
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
-    Voucher saveAndFlush(Voucher voucher);
+
+    Customer saveAndFlush(Customer account);
 
 
     // ----------------------------------------------------------------------------------
     //  Delete
     // ----------------------------------------------------------------------------------
+
 
 }

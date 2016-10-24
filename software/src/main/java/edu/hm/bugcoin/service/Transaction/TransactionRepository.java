@@ -1,4 +1,4 @@
-package edu.hm.bugcoin.service;
+package edu.hm.bugcoin.service.Transaction;
 /*
  * Projekt: bugcoin
  * Autor: Maximilian Pachl

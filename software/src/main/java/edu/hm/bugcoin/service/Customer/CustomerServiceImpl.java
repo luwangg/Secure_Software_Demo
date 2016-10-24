@@ -1,6 +1,7 @@
-package edu.hm.bugcoin.service;
+package edu.hm.bugcoin.service.Customer;
 
 import edu.hm.bugcoin.domain.Bankaccount;
+import edu.hm.bugcoin.service.BankAccount.BankAccountRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;

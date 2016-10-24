@@ -1,32 +1,33 @@
-package edu.hm.bugcoin.service;
+package edu.hm.bugcoin.service.BankAccount;
 /*
  * Created by shreaker on 18.10.16.
  */
 
 import edu.hm.bugcoin.domain.Bankaccount;
-import edu.hm.bugcoin.domain.Voucher;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 
 
 /**
  *
  */
-public interface VoucherService {
+public interface BankAccountService {
 
     // ----------------------------------------------------------------------------------
     //  Request
     // ----------------------------------------------------------------------------------
 
-    Voucher getVoucher(long code);
+    long getNewAccountNr();
 
-    List<Voucher> getAllVouchers();
+    long getAccountNrVoucher();
+
+    Bankaccount getAccount(long accountNumber);
+
+    float getBalance(long accountNumber);
 
 
     // ----------------------------------------------------------------------------------
     //  Update / Add
     // ----------------------------------------------------------------------------------
-    Voucher addNewVoucher(float value);
 
 
     // ----------------------------------------------------------------------------------
