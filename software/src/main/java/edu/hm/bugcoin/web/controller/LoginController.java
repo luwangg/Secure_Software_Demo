@@ -7,9 +7,9 @@ package edu.hm.bugcoin.web.controller;
  */
 
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.UserState;
 import edu.hm.bugcoin.security.CryptoUserData;
 import edu.hm.bugcoin.security.CryptoUserDataBcrypt;
-import edu.hm.bugcoin.service.BankAccount.BankAccountRepository;
 import edu.hm.bugcoin.service.Customer.CustomerService;
 import org.jboss.aerogear.security.otp.Totp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,8 @@ public class LoginController
     //  Konstanten
     // ----------------------------------------------------------------------------------
 
-    private static final String HOME_PAGE = "/banking/transactions";
+    private static final String HOME_PAGE_USER = "/banking/transactions";
+    private static final String HOME_PAGE_ADMIN = "/admin/userManagement";
 
 
     // ----------------------------------------------------------------------------------
@@ -41,7 +42,6 @@ public class LoginController
     // ----------------------------------------------------------------------------------
 
     @Autowired private CustomerService customerService;
-    @Autowired private BankAccountRepository bankAccountRepository;
 
 
     // ----------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ public class LoginController
             if (token.equals(""))
                 throw new RuntimeException();
 
-            // search for the uesr in database
+            // search for the user in database
             final Customer customer = customerService.getCustomer(username);
             final Totp otp = new Totp(customer.getOtpKey());
 
@@ -75,7 +75,12 @@ public class LoginController
             if (verifyPassword(password, customer.getPassword()) && otp.verify(token))
             {
                 session.setAttribute(SessionKey.AUTH_USER, customer);
-                return "redirect:" + HOME_PAGE;
+
+                if(isAdmin(customer)){
+                    return "redirect:" + HOME_PAGE_ADMIN;
+                }else{
+                    return "redirect:" + HOME_PAGE_USER;
+                }
             }
 
         } catch (final RuntimeException ignored) { }
@@ -95,5 +100,9 @@ public class LoginController
     private boolean verifyPassword(String password, String passwordHash){
         CryptoUserData cryptoUserData = new CryptoUserDataBcrypt();
         return cryptoUserData.verifyUserData(password, passwordHash);
+    }
+
+    private boolean isAdmin(Customer customer){
+        return customer.getUserState() == UserState.ADMIN;
     }
 }

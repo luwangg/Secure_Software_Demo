@@ -52,7 +52,9 @@ public class Customer implements Serializable {
     @Column(nullable = false, name = "otpkey")
     private String otpKey;
 
-
+    @Column(nullable = false, name = "userstate")
+    @Enumerated(EnumType.STRING)
+    private UserState userState;
 
     // ----------------------------------------------------------------------------------
     //  Constructor
@@ -116,7 +118,9 @@ public class Customer implements Serializable {
         return otpKey;
     }
 
-
+    public UserState getUserState() {
+        return userState;
+    }
     // ----------------------------------------------------------------------------------
     //  Setter
     // ----------------------------------------------------------------------------------
@@ -176,7 +180,9 @@ public class Customer implements Serializable {
         return this;
     }
 
-
+    public void setUserState(UserState userState) {
+        this.userState = userState;
+    }
     // ----------------------------------------------------------------------------------
     //  Override
     // ----------------------------------------------------------------------------------

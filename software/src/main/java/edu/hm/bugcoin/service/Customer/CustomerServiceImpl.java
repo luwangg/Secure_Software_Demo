@@ -1,6 +1,7 @@
 package edu.hm.bugcoin.service.Customer;
 
 import edu.hm.bugcoin.domain.Bankaccount;
+import edu.hm.bugcoin.domain.UserState;
 import edu.hm.bugcoin.service.BankAccount.BankAccountRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,12 @@ public class CustomerServiceImpl implements CustomerService{
     //  Request
     // ----------------------------------------------------------------------------------
     @Override
+    public Customer getCustomer(String nickname) {
+        Assert.notNull(nickname, "Nickname must not be null");
+        return customerRepository.findByNickname(nickname);
+    }
+
+    @Override
     public List<Customer> getCustomers(String lastname, String firstname) {
         Assert.notNull(lastname, "Name must not be null");
         Assert.notNull(firstname, "Name must not be null");
@@ -42,9 +49,9 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public Customer getCustomer(String nickname) {
-        Assert.notNull(nickname, "Nickname must not be null");
-        return customerRepository.findByNickname(nickname);
+    public List<Customer> getCustomers(UserState userState) {
+        Assert.notNull(userState, "UserState must not be null");
+        return customerRepository.findByUserState(userState);
     }
 
     @Override

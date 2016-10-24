@@ -6,6 +6,8 @@ package edu.hm.bugcoin.service.Customer;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.UserState;
+
 import java.util.List;
 
 
@@ -21,6 +23,8 @@ public interface CustomerService {
     Customer getCustomer(String nickname);
 
     List<Customer> getCustomers(String lastname, String firstname);
+
+    List<Customer> getCustomers(UserState userState);
 
     List<Bankaccount> getBankAccounts(String nickname);
 
