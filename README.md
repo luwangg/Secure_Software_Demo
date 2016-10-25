@@ -25,7 +25,7 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 - Benutzername + Password zur Authentifizierung <html>&#10004;</html>
 - Two Factor Authentication <html>&#10004;</html>
 - Captcha
-- Signieren von Überweisungen (TAN, Privatekey, ...)
+- Signieren von Überweisungen (~~TAN~~, Privatekey, ...)
 - Logout nach Inaktivität <html>&#10004;</html>
 - Freischaltung neuer Nutzer durch Admin, nach PostIdent Verfahren
 - Logging von Benutzer/Admin aktivitäten bezüglich SQL-Statements
