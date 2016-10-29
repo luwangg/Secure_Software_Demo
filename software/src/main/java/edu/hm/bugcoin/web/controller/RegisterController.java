@@ -44,10 +44,8 @@ public class RegisterController
     //  Objektvariablen
     // ----------------------------------------------------------------------------------
 
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private BankAccountService bankAccountService;
+    @Autowired private CustomerService customerService;
+    @Autowired private BankAccountService bankAccountService;
 
 
     // ----------------------------------------------------------------------------------

@@ -27,12 +27,13 @@ public class AdminController {
     // ----------------------------------------------------------------------------------
     //  member variables
     // ----------------------------------------------------------------------------------
-    @Autowired
-    private CustomerService customerService;
+
+    @Autowired private CustomerService customerService;
 
     // ----------------------------------------------------------------------------------
     //  attributes
     // ----------------------------------------------------------------------------------
+
     @ModelAttribute
     public void attrs(final HttpSession session, final Model model) {
         final Customer admin = (Customer) session.getAttribute(SessionKey.AUTH_USER);
@@ -42,8 +43,9 @@ public class AdminController {
     // ----------------------------------------------------------------------------------
     //  http handlers
     // ----------------------------------------------------------------------------------
+
     @RequestMapping(value = "/admin/userManagement")
-    @ACL(ACL.Type.NORMAL) //TODO @ACL
+    @ACL(CustomerLevel.ADMIN)
     public String showCustomers(@RequestParam(value = "level", required = false) final CustomerLevel level,
                                 @SessionAttribute(SessionKey.AUTH_USER) Customer admin,
                                 final HttpSession session, final Model model) {
@@ -54,7 +56,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/userManagement", method = RequestMethod.POST)
-    @ACL(ACL.Type.NORMAL) //TODO @ACL
+    @ACL(CustomerLevel.ADMIN)
     public String alternateCustomer(@RequestParam(value = "level", required = false) final CustomerLevel level,
                                     @RequestParam(value = "action", required = false) final String action,
                                     @RequestParam(value = "customerNickname", required = false) final String customerNickname,
@@ -99,11 +101,7 @@ public class AdminController {
     }
 
     private boolean isUserInputValid(String action, String customerNickname) {
-        if (action == null || customerNickname == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(action == null || customerNickname == null);
     }
 
     private void doActionOnCustomer(Customer customer, String action) throws CustomerService.IllegalCustomerLevelException, IllegalArgumentException {

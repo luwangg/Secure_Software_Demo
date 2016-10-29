@@ -8,6 +8,7 @@ package edu.hm.bugcoin.web.controller;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.CustomerLevel;
 import edu.hm.bugcoin.service.BankAccount.BankAccountService;
 import edu.hm.bugcoin.service.Customer.CustomerService;
 import edu.hm.bugcoin.service.Transaction.TransactionRepository;
@@ -54,7 +55,7 @@ public class BankingController
     // ----------------------------------------------------------------------------------
 
     @RequestMapping("/banking/transactions")
-    @ACL(ACL.Type.NORMAL)
+    @ACL({CustomerLevel.USER, CustomerLevel.PRO_USER})
     public String transactions(@RequestParam(value = "account", required = false) final Integer account,
                                @SessionAttribute(SessionKey.AUTH_USER) Customer customer,
                                final HttpSession session, final Model model)
@@ -77,14 +78,14 @@ public class BankingController
     }
 
     @GetMapping("/banking/transfer")
-    @ACL(ACL.Type.NORMAL)
+    @ACL({CustomerLevel.USER, CustomerLevel.PRO_USER})
     public String transfer()
     {
         return "transfer";
     }
 
     @RequestMapping(value = "/banking/transfer", method = RequestMethod.POST)
-    @ACL(ACL.Type.NORMAL)
+    @ACL({CustomerLevel.USER, CustomerLevel.PRO_USER})
     public String transfer(@RequestParam("target") final long target,
                            @RequestParam("amount") final float amount,
                            @RequestParam("source") final long source,

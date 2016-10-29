@@ -8,6 +8,7 @@ package edu.hm.bugcoin.web.controller;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.CustomerLevel;
 import edu.hm.bugcoin.domain.Voucher;
 import edu.hm.bugcoin.service.BankAccount.BankAccountService;
 import edu.hm.bugcoin.service.Customer.CustomerService;
@@ -60,13 +61,13 @@ public class VoucherController {
     // ----------------------------------------------------------------------------------
 
     @GetMapping("/banking/voucher")
-    @ACL(ACL.Type.NORMAL)
+    @ACL({CustomerLevel.USER, CustomerLevel.PRO_USER})
     public String voucher() {
         return "voucher";
     }
 
     @RequestMapping(value = "/banking/voucher", method = RequestMethod.POST)
-    @ACL(ACL.Type.NORMAL)
+    @ACL({CustomerLevel.USER, CustomerLevel.PRO_USER})
     public String voucher(@RequestParam(value = "account", required = false) final Integer account,
                           @RequestParam("voucherCode") final long voucherCodeUserInput,
                           @SessionAttribute(SessionKey.AUTH_USER) Customer customer,

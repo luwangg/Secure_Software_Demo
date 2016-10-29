@@ -6,6 +6,9 @@ package edu.hm.bugcoin.web.auth;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
+import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.CustomerLevel;
+import edu.hm.bugcoin.web.controller.LoginController;
 import edu.hm.bugcoin.web.controller.SessionKey;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -34,14 +37,30 @@ public class AuthInterceptor implements HandlerInterceptor
         final Method method = ((HandlerMethod)handler).getMethod();
         final ACL acl = method.getAnnotation(ACL.class);
 
-        // if a handler is annotated with ACL check if the SESSION attribute is defined
-        if (acl != null && session.getAttribute(SessionKey.AUTH_USER) == null)
+        if (acl != null)
         {
-            res.sendRedirect("/");
-            return false;
+            // all @ACL annotated pages need a valid user session
+            // and make sure the user has sufficient access rights
+            final Customer user = (Customer)session.getAttribute(SessionKey.AUTH_USER);
+            if (user == null || !hasLevel(acl.value(), user.getLevel()))
+            {
+                res.sendRedirect("/");
+                return false;
+            }
         }
 
         return true;
+    }
+
+    private boolean hasLevel(final CustomerLevel[] levels, final CustomerLevel level)
+    {
+        for (final CustomerLevel lvl : levels)
+        {
+            if (lvl.equals(level))
+                return true;
+        }
+
+        return false;
     }
 
     @Override

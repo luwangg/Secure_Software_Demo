@@ -6,6 +6,8 @@ package edu.hm.bugcoin.web.auth;
  * duplo, Windows 7 Ultimate, Oracle JDK 1.8.0_02
  */
 
+import edu.hm.bugcoin.domain.CustomerLevel;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -19,11 +21,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface ACL
 {
-    Type value();
+    CustomerLevel[] value();
 
-    enum Type {
-        NORMAL,
-        PREMIUM,
-        ADMIN
-    }
 }
