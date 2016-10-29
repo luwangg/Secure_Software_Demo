@@ -72,7 +72,6 @@
                 <tr th:each="transaction : ${transactions}"
                     th:with="target=${transaction.getTargetAccount()},
                              source=${transaction.getSourceAccount()}">
-                    <td>--.--.----</td>
                     <td th:if="${source.equals(selectedAccount)}">
                         <span th:text="${target.getCustomer().getFirstname()}"></span>
                         <span th:text="${target.getCustomer().getLastname()}"></span><br />
