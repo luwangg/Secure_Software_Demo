@@ -22,6 +22,10 @@ public interface VoucherService {
 
     List<Voucher> getAllVouchers();
 
+    List<Voucher> getAllNotReedemedVouchers();
+
+    List<Voucher> getAllReedemedVouchers();
+
     boolean isVoucherValid(Voucher voucher);
 
     // ----------------------------------------------------------------------------------

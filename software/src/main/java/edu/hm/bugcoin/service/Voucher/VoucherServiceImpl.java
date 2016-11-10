@@ -36,6 +36,15 @@ public class VoucherServiceImpl implements VoucherService {
         return voucherRepository.findAll();
     }
 
+    @Override
+    public List<Voucher> getAllNotReedemedVouchers() {
+        return voucherRepository.findByIsReedemedIsFalse();
+    }
+
+    @Override
+    public List<Voucher> getAllReedemedVouchers() {
+        return voucherRepository.findByIsReedemedIsTrue();
+    }
 
     @Override
     public boolean isVoucherValid(Voucher voucher){
