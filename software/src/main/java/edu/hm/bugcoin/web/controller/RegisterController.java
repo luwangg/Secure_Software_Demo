@@ -8,6 +8,8 @@ package edu.hm.bugcoin.web.controller;
 
 import edu.hm.bugcoin.domain.Bankaccount;
 import edu.hm.bugcoin.domain.Customer;
+import edu.hm.bugcoin.domain.CustomerLevel;
+import edu.hm.bugcoin.domain.CustomerState;
 import edu.hm.bugcoin.security.CryptoUserData;
 import edu.hm.bugcoin.security.CryptoUserDataBcrypt;
 import edu.hm.bugcoin.service.BankAccount.BankAccountService;
@@ -77,7 +79,9 @@ public class RegisterController
                     .setStreet(registration.getStreet())
                     .setPostcode(registration.getPostalcode())
                     .setCity(registration.getCity())
-                    .setEmail(registration.getEmail());
+                    .setEmail(registration.getEmail())
+                    .setLevel(CustomerLevel.USER)
+                    .setState(CustomerState.INACTIVE);
             setPasswordHashAndSaltOfCustomer(customer, registration.getPassword());
             customerService.addCustomer(customer);
             setBankAccountOfCustomer(customer);
