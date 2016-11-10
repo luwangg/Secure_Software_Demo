@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/shreaker/Secure_Software_Demo.svg?branch=master)](https://travis-ci.org/shreaker/Secure_Software_Demo)
+[![Build Status](https://travis-ci.com/shreaker/Secure_Software_Demo.svg?token=suGaL8uCqs9EbDHXkw8Q&branch=master)](https://travis-ci.com/shreaker/Secure_Software_Demo)
 
 # Software-Sicherheit
 
@@ -44,7 +44,7 @@ Eine Mockup Implementierung in HTML und CSS der Weboberfläche befindet sich im 
 ![Mockup of Webapplication](docs/readme/mockup_webapp.png)
 
 ## Continuous integration   
-https://travis-ci.org/shreaker/Secure_Software_Demo [![Build Status](https://travis-ci.org/shreaker/Secure_Software_Demo.svg?branch=master)](https://travis-ci.org/shreaker/Secure_Software_Demo)
+https://travis-ci.com/shreaker/Secure_Software_Demo [![Build Status](https://travis-ci.com/shreaker/Secure_Software_Demo.svg?token=suGaL8uCqs9EbDHXkw8Q&branch=master)](https://travis-ci.com/shreaker/Secure_Software_Demo)
 
 ## Deployment
 Unter https://bugcoin.herokuapp.com/ steht eine aktuelle Version der Webapplikation zur verfügung. 
