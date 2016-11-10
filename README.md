@@ -47,4 +47,6 @@ Eine Mockup Implementierung in HTML und CSS der Weboberfläche befindet sich im 
 https://travis-ci.org/shreaker/Secure_Software_Demo [![Build Status](https://travis-ci.org/shreaker/Secure_Software_Demo.svg?branch=master)](https://travis-ci.org/shreaker/Secure_Software_Demo)
 
 ## Deployment
-Unter https://bugcoin.herokuapp.com/ steht eine aktuelle Version der Webapplikation zur verfügung. Achtung: Bis dato wird die Applikation im development mode betrieben, das bedeutet die Datenbank wird spätestens nach 24h zurückgesetzt.
+Unter https://bugcoin.herokuapp.com/ steht eine aktuelle Version der Webapplikation zur verfügung. 
+Achtung: Bis dato wird die Applikation im development mode betrieben, das bedeutet die Datenbank wird spätestens nach 24h zurückgesetzt.
+Push auf heroku branch notwendig um zu depolyen: Einmalig Heroku Command Line installieren. Push: make Makefile ausführen. 
