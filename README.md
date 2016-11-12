@@ -21,7 +21,7 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 - Geschenkkarten Codes erzeugen <html>&#10004;</html>
 
 ## Sicherheitsfeatures
-- HTTPS, kein HTTP
+- HTTPS, kein HTTP <html>&#10004;</html>
 - Benutzername + Password zur Authentifizierung <html>&#10004;</html>
 - Two Factor Authentication <html>&#10004;</html>
 - ~~Captcha~~
