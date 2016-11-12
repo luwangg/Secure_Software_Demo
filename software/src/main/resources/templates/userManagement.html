@@ -22,7 +22,7 @@
         <div class="title">Verwaltung</div>
         <ul>
             <li class="active"><a href="/admin/userManagement">Benutzer Verwaltung</a></li>
-            <li class="active"><a href="/admin/voucherManagement">Gutschein Verwaltung</a></li>
+            <li><a href="/admin/voucherManagement">Gutschein Verwaltung</a></li>
         </ul>
     </div>
 
@@ -32,9 +32,8 @@
         Sie waren zuletzt angemeldet am 18.09.2016 um 21:54 Uhr.<br/>
         <br/><br/>
 
-        <div class="message" th:if="${message != null}" style="margin-top: 30px">
+        <div class="message" th:if="${message != null}" style="margin-bottom: 30px;">
             <p th:text="${message}"/>
-            <br/><br/>
         </div>
 
         <div class="title">Filter</div>
@@ -56,43 +55,41 @@
         </form>
         <br/><br/>
 
-        <div>
-            <div class="title">Aktion</div>
-            <form method="post">
-                <input type="radio" id="activate" name="action" value="activate"><label for="activate">Benutzer
-                freischalten</label>
-                <input type="radio" id="deactivate" name="action" value="deactivate"><label for="deactivate">Benutzer
-                sperren</label><br/><br/>
-                <input type="radio" id="upgrade" name="action" value="upgrade"><label for="upgrade">Benutzer
-                upgrade</label>
-                <input type="radio" id="downgrade" name="action" value="downgrade"><label for="downgrade">Benutzer
-                downgrade</label><br/><br/>
-                <input type="submit" value="Aktion ausführen">
+        <div class="title">Aktion</div>
+        <form method="post">
+            <input type="radio" id="activate" name="action" value="activate"><label for="activate">Benutzer
+            freischalten</label>
+            <input type="radio" id="deactivate" name="action" value="deactivate"><label for="deactivate">Benutzer
+            sperren</label><br/><br/>
+            <input type="radio" id="upgrade" name="action" value="upgrade"><label for="upgrade">Benutzer
+            upgrade</label>
+            <input type="radio" id="downgrade" name="action" value="downgrade"><label for="downgrade">Benutzer
+            downgrade</label><br/><br/>
+            <input type="submit" value="Aktion ausführen">
 
-                <br/><br/>
-                <br/><br/>
+            <br/><br/>
+            <br/><br/>
 
 
-                <div class="title">Benutzer</div>
-                <table>
-                    <tr>
-                        <th>Auswahl</th>
-                        <th>Benutzername</th>
-                        <th>Email</th>
-                        <th>Level</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr th:each="customer : ${customers}"
-                        th:with="user=${customer}">
-                        <td><input type='radio' name="customerNickname" th:value="${user.getNickname()}"/></td>
-                        <td><span th:text="${user.getNickname()}"></span></td>
-                        <td><span th:text="${user.getEmail()}"></span></td>
-                        <td><span th:text="${user.getLevel()}"></span></td>
-                        <td><span th:text="${user.getState()}"></span></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+            <div class="title">Benutzer</div>
+            <table class="formated">
+                <tr>
+                    <th>Auswahl</th>
+                    <th>Benutzername</th>
+                    <th>Email</th>
+                    <th>Level</th>
+                    <th>Status</th>
+                </tr>
+                <tr th:each="customer : ${customers}"
+                    th:with="user=${customer}">
+                    <td><input type='radio' name="customerNickname" th:value="${user.getNickname()}"/></td>
+                    <td><span th:text="${user.getNickname()}"></span></td>
+                    <td><span th:text="${user.getEmail()}"></span></td>
+                    <td><span th:text="${user.getLevel()}"></span></td>
+                    <td><span th:text="${user.getState()}"></span></td>
+                </tr>
+            </table>
+        </form>
     </div>
 
     <!-- right side info-box -->

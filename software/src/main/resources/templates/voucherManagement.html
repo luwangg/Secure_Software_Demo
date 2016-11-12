@@ -21,7 +21,7 @@
     <div id="nav-left" class="sidenav">
         <div class="title">Verwaltung</div>
         <ul>
-            <li class="active"><a href="/admin/userManagement">Benutzer Verwaltung</a></li>
+            <li><a href="/admin/userManagement">Benutzer Verwaltung</a></li>
             <li class="active"><a href="/admin/voucherManagement">Gutschein Verwaltung</a></li>
         </ul>
     </div>
@@ -32,7 +32,7 @@
         Sie waren zuletzt angemeldet am 18.09.2016 um 21:54 Uhr.<br/>
         <br/><br/>
 
-        <div class="message" th:if="${message != null}" style="margin-top: 30px">
+        <div class="message" th:if="${message != null}" style="margin-bottom: 30px;">
             <p th:text="${message}"/>
             <br/><br/>
         </div>
@@ -57,7 +57,7 @@
         <!-- Gutscheine anzeigen -->
         <div>
             <div class="title">Gutscheine anzeigen</div>
-            <table>
+            <table class="formated">
                 <tr>
                     <th>Nummer</th>
                     <th>Betrag</th>
@@ -66,8 +66,8 @@
                 <tr th:each="voucher : ${vouchers}"
                     th:with="vchr=${voucher}">
                     <td><span th:text="${vchr.getCode()}"></span></td>
-                    <td><span th:text="${vchr.getValue()}"></span></td>
-                    <td><span th:text="${vchr.isReedemed()}"></span></td>
+                    <td class="center"><span th:text="${vchr.getValue() == 0.0f ? '0,00' : #numbers.formatDecimal(vchr.getValue(), 0, 'POINT', 2, 'COMMA')}"></span>&nbsp;€</td>
+                    <td class="center"><span th:text="${vchr.isReedemed() ? 'Ja' : 'Nein'}"></span></td>
                 </tr>
             </table>
         </div>
