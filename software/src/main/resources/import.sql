@@ -25,10 +25,10 @@ INSERT INTO bankaccount(customer_id, account_number) VALUES (4, 100010)
 INSERT INTO voucher(code, value, isreedemed) VALUES ('1234567890', '10', 'false')
 
 -- initial account balance (voucher)
-INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (100000, 516842, 'GUTSCHEIN\nCode: 7098004047291733428', 500.00)
+--INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (100000, 516842, 'GUTSCHEIN\nCode: 7098004047291733428', 500.00)
 INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (100000, 849544, 'GUTSCHEIN\nCode: 9058297197314082204', 500.00)
-INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (100000, 980234, 'GUTSCHEIN\nCode: 2132592771375554407', 500.00)
+--INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (100000, 980234, 'GUTSCHEIN\nCode: 2132592771375554407', 500.00)
 
 -- transactions
-INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (980234, 516842, 'ÜBERWEISUNG\nDispoausgleich Kreditkarte', 47.50)
-INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (980234, 849544, 'ÜBERWEISUNG\nReparatur Malibu Stacy Kopf', 11.25)
+--INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (980234, 516842, 'ÜBERWEISUNG\nDispoausgleich Kreditkarte', 47.50)
+--INSERT INTO transaction(source_account_account_number, target_account_account_number, description, amount) VALUES (980234, 849544, 'ÜBERWEISUNG\nReparatur Malibu Stacy Kopf', 11.25)
