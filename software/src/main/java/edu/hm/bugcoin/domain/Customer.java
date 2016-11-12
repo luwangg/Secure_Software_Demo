@@ -189,12 +189,14 @@ public class Customer implements Serializable {
         return this;
     }
 
-    public void setLevel(CustomerLevel level) {
+    public Customer setLevel(CustomerLevel level) {
         this.level = level;
+        return this;
     }
 
-    public void setState(CustomerState state) {
+    public Customer setState(CustomerState state) {
         this.state = state;
+        return this;
     }
     // ----------------------------------------------------------------------------------
     //  Override

@@ -9,7 +9,7 @@ INSERT INTO bankaccount(customer_id, account_number) VALUES (1, 516842)
 
 -- lisa simpson
 -- password plaintext: hans
-INSERT INTO customer(nickname, lastname, firstname, street, postCode, city, email, password, salt, otpkey, level, state) VALUES ('lisa', 'Simpson', 'Lisa', 'Mapledrive 24', '86461', 'Springfield', 'lisa@simpson.com', '$2a$10$F35NUXlsKrhIcZIZqR3myu0m9suN3PXp1GXKMZFMKAbStXFFJYT7G', '$2a$10$F35NUXlsKrhIcZIZqR3myu', '26MOCFUXZ5G6MJ2K', 'USER', 'ACTIVE')
+INSERT INTO customer(nickname, lastname, firstname, street, postCode, city, email, password, salt, otpkey, level, state) VALUES ('lisa', 'Simpson', 'Lisa', 'Mapledrive 24', '86461', 'Springfield', 'lisa@simpson.com', '$2a$10$F35NUXlsKrhIcZIZqR3myu0m9suN3PXp1GXKMZFMKAbStXFFJYT7G', '$2a$10$F35NUXlsKrhIcZIZqR3myu', '26MOCFUXZ5G6MJ2K', 'USER', 'INACTIVE')
 INSERT INTO bankaccount(customer_id, account_number) VALUES (2, 849544)
 
 -- voucher account
@@ -17,6 +17,7 @@ INSERT INTO customer(nickname, lastname, firstname, street, postCode, city, emai
 INSERT INTO bankaccount(customer_id, account_number) VALUES (3, 100000)
 
 -- admin account
+-- password plaintext: hans
 INSERT INTO customer(nickname, lastname, firstname, street, postCode, city, email, password, salt, otpkey, level, state) VALUES ('kingOfTheHill', 'admin', 'admin', '---', '---', '---', 'admin@bugcoin.com', '$2a$10$F35NUXlsKrhIcZIZqR3myu0m9suN3PXp1GXKMZFMKAbStXFFJYT7G', '$2a$10$F35NUXlsKrhIcZIZqR3myu', '26MOCFUXZ5G6MJ2K', 'ADMIN', 'ACTIVE')
 INSERT INTO bankaccount(customer_id, account_number) VALUES (4, 100010)
 

@@ -25,6 +25,10 @@ public interface VoucherRepository extends Repository<Voucher, Long>{
 
     List<Voucher> findAll();
 
+    List<Voucher> findByIsReedemedIsTrue();
+
+    List<Voucher> findByIsReedemedIsFalse();
+
 
     // ----------------------------------------------------------------------------------
     //  Update / Add
