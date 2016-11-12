@@ -68,7 +68,7 @@
 					<th style="width: 110px;">Betrag</th>
 				</tr>
 
-                <!--/*--><!--@thymesVar id="transactions" type="edu.hm.bugcoin.domain.Transaction"--><!--*/-->
+                <!--/*--><!--@thymesVar id="transactions" type="java.util.ArrayList"--><!--*/-->
                 <tr th:each="transaction : ${transactions}"
                     th:with="target=${transaction.getTargetAccount()},
                              source=${transaction.getSourceAccount()}">
@@ -90,6 +90,11 @@
                         <span th:if="${!source.equals(selectedAccount)}">+</span>
                         <span th:text="${#numbers.formatDecimal(transaction.getAmount(), 0, 'POINT', 2, 'COMMA')}"></span> EUR
                     </td>
+                </tr>
+
+                <!-- empty message -->
+                <tr>
+                    <td colspan="3" class="center" th:if="${transactions.size() == 0}">Keine Überweisungen vorhanden</td>
                 </tr>
 			</table>
     	</div>

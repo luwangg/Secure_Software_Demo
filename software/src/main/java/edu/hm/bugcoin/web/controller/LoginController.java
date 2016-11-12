@@ -36,7 +36,7 @@ public class LoginController {
     // ----------------------------------------------------------------------------------
 
     private static final String HOME_PAGE_USER = "/banking/transactions";
-    private static final String HOME_PAGE_ADMIN = "/admin/userManagement";
+    private static final String HOME_PAGE_ADMIN = "/admin/user";
 
     private static final String E_OK = null;
 

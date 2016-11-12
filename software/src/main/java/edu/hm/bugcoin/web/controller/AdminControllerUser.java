@@ -44,7 +44,7 @@ public class AdminControllerUser {
     //  http handlers
     // ----------------------------------------------------------------------------------
 
-    @RequestMapping(value = "/admin/userManagement")
+    @RequestMapping(value = "/admin/user")
     @ACL(CustomerLevel.ADMIN)
     public String showCustomers(@RequestParam(value = "level", required = false) final CustomerLevel level,
                                 @SessionAttribute(SessionKey.AUTH_USER) Customer admin,
@@ -52,10 +52,10 @@ public class AdminControllerUser {
 
         addDataForFilterToSessionModel(model, level);
 
-        return "userManagement";
+        return "admin/user";
     }
 
-    @RequestMapping(value = "/admin/userManagement", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/user", method = RequestMethod.POST)
     @ACL(CustomerLevel.ADMIN)
     public String alternateCustomer(@RequestParam(value = "level", required = false) final CustomerLevel level,
                                     @RequestParam(value = "action", required = false) final String action,
@@ -79,7 +79,7 @@ public class AdminControllerUser {
             model.addAttribute("message", "Keine Aktion oder keinen User ausgewählt!");
         }
 
-        return "userManagement";
+        return "admin/user";
     }
 
     // ----------------------------------------------------------------------------------
