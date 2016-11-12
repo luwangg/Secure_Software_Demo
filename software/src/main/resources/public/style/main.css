@@ -19,6 +19,10 @@ textarea {
 	resize: none;
 }
 
+a:visited {
+	color: black;
+}
+
 div.title {
 	font-size: 12px;
 	font-weight: bold;

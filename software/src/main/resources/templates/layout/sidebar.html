@@ -1,22 +1,27 @@
-<div xmlns:th="http://java.sun.com/JSP/Page">
-<div class="title">Account</div>
-<span th:text="${me.getFirstname() + ' ' + me.getLastname()}"></span><br /><br />
+<div xmlns:th="http://www.thymeleaf.org">
+    <div class="title">Account</div>
+    <span th:text="${me.getFirstname() + ' ' + me.getLastname()}"></span><br /><br />
 
-Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in<br /><span id="force-logout">10</span> Min.<br /><br />
-<input type="button" value="Abmelden" onclick="window.location='/logout'" /> <br /><br /><br />
+    Zu Ihrer Sicherheit erfolgt die automatische Abmeldung in<br /><span id="force-logout">10</span> Min.<br /><br />
+    <input type="button" value="Abmelden" onclick="window.location='/logout'" /><br /><br /><br />
 
-<div class="title">Finanzstatus</div>
-<table style="font-size: 11px; width: 100%;" class="accounts">
-    <tr style="font-weight: bold;">
-        <td>Konto</td>
-        <td align="right">Kontostand</td>
-    </tr>
+    <div class="title">Finanzstatus</div>
+    <table style="font-size: 11px; width: 100%;" class="accounts">
+        <tr style="font-weight: bold;">
+            <td>Konto</td>
+            <td align="right">Kontostand</td>
+        </tr>
 
-    <tr th:each="account : ${accounts}">
-        <td><a th:attr="href='/banking/transactions?account=' + ${account.getAccountNumber()}">
-            <span th:text="${account.getAccountNumber()}"></span>
-        </a></td>
-        <td align="right"><span th:text="${account.getBalance() == 0.0f ? '0,00' : #numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"></span>&nbsp;€</td>
-    </tr>
-</table>
+        <tr th:each="account : ${accounts}">
+            <td>
+                <a th:attr="href='/banking/transactions?account=' + ${account.getAccountNumber()}">
+                    <span th:text="${account.getAccountNumber()}"></span>
+                </a>
+            </td>
+            <td align="right"><span th:text="${account.getBalance() == 0.0f ? '0,00' : #numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"></span>&nbsp;€</td>
+        </tr>
+    </table><br /><br />
+
+    <div class="title">Security matters</div>
+    <a href="/bugBounty" target="_blank">Bug gefunden?</a>
 </div>
