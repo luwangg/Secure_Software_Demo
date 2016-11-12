@@ -10,6 +10,8 @@ import edu.hm.bugcoin.domain.Customer;
 import edu.hm.bugcoin.domain.CustomerLevel;
 import edu.hm.bugcoin.web.controller.LoginController;
 import edu.hm.bugcoin.web.controller.SessionKey;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +24,7 @@ import java.lang.reflect.Method;
 /**
  *
  */
+@Component
 public class AuthInterceptor implements HandlerInterceptor
 {
     private static final int SESSION_TIMEOUT_MIN = 10;
