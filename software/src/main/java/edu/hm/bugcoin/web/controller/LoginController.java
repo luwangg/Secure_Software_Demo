@@ -86,11 +86,7 @@ public class LoginController {
         } catch (final RuntimeException ignored) {
         }
 
-        if (redirect != "login") {
-            return redirect; //success
-        } else {
-            return redirect; //no success: stay on login page
-        }
+        return redirect;
     }
 
     @RequestMapping("/logout")
