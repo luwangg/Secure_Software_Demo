@@ -47,7 +47,7 @@ public class AdminControllerVoucher {
     //  http handlers
     // ----------------------------------------------------------------------------------
 
-    @RequestMapping(value = "/admin/voucherManagement")
+    @RequestMapping(value = "/admin/voucher")
     @ACL(CustomerLevel.ADMIN)
     public String showVouchers(@RequestParam(value = "isVoucherReedemedFilter", required = false) final boolean isVoucherReedemedFilter,
                                @SessionAttribute(SessionKey.AUTH_USER) Customer admin,
@@ -55,10 +55,10 @@ public class AdminControllerVoucher {
 
         addDataForFilterToSessionModel(model, isVoucherReedemedFilter);
 
-        return "voucherManagement";
+        return "admin/voucher";
     }
 
-    @RequestMapping(value = "/admin/voucherManagement", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/voucher", method = RequestMethod.POST)
     @ACL(CustomerLevel.ADMIN)
     public String transfer(@RequestParam("amount") final float amount,
                            @SessionAttribute(SessionKey.AUTH_USER) Customer admin,
@@ -70,7 +70,7 @@ public class AdminControllerVoucher {
         boolean isVoucherReedemedFilter = false;
         addDataForFilterToSessionModel(model, isVoucherReedemedFilter);
 
-        return "voucherManagement";
+        return "admin/voucher";
     }
 
     // ----------------------------------------------------------------------------------

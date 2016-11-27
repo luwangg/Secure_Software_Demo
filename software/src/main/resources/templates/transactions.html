@@ -61,14 +61,14 @@
             </form><br />
 
 			<div class="title">Umsätze</div><br/>
-			<table>
+			<table class="formated">
 				<tr>
                     <th>An / Von</th>
 					<th>Verwendungszweck</th>
 					<th style="width: 110px;">Betrag</th>
 				</tr>
 
-                <!--/*--><!--@thymesVar id="transactions" type="edu.hm.bugcoin.domain.Transaction"--><!--*/-->
+                <!--/*--><!--@thymesVar id="transactions" type="java.util.ArrayList"--><!--*/-->
                 <tr th:each="transaction : ${transactions}"
                     th:with="target=${transaction.getTargetAccount()},
                              source=${transaction.getSourceAccount()}">
@@ -82,12 +82,19 @@
                         <span th:text="${source.getCustomer().getLastname()}"></span><br />
                         <span th:text="${source.getAccountNumber()}"></span>
                     </td>
+
                     <td><span th:utext="${#strings.replace(transaction.getDescription(), '\n', '<br />')}"></span></td>
-                    <td th:style="${source.equals(selectedAccount) ? 'color: red;' : ''}">
+
+                    <td class="right" th:style="${source.equals(selectedAccount) ? 'color: red;' : ''}">
                         <span th:if="${source.equals(selectedAccount)}">-</span>
                         <span th:if="${!source.equals(selectedAccount)}">+</span>
                         <span th:text="${#numbers.formatDecimal(transaction.getAmount(), 0, 'POINT', 2, 'COMMA')}"></span> EUR
                     </td>
+                </tr>
+
+                <!-- empty message -->
+                <tr>
+                    <td colspan="3" class="center" th:if="${transactions.size() == 0}">Keine Überweisungen vorhanden</td>
                 </tr>
 			</table>
     	</div>
