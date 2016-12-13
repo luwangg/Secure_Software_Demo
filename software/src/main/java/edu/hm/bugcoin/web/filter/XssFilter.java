@@ -87,10 +87,9 @@ public class XssFilter implements Filter
         }
 
         private String cleanXSS(String value) {
-            // You'll need to remove the spaces from the html entities below
-            //value = value.replaceAll("<", "& lt;").replaceAll(">", "& gt;");
-            //value = value.replaceAll("\\(", "& #40;").replaceAll("\\)", "& #41;");
-            //value = value.replaceAll("'", "& #39;");
+            value = value.replaceAll("(?i)<.*?>", "");
+            value = value.replaceAll("\\(", "").replaceAll("\\)", "");
+            value = value.replaceAll("'", "");
             value = value.replaceAll("eval\\((.*)\\)", "");
             value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
 
@@ -98,8 +97,7 @@ public class XssFilter implements Filter
             value = value.replaceAll("(?i)<script.*?>.*?</script.*?>", "");
             value = value.replaceAll("(?i)<.*?javascript:.*?>.*?</.*?>", "");
             value = value.replaceAll("(?i)<.*?\\s+on.*?>.*?</.*?>", "");
-            //value = value.replaceAll("<script>", "");
-            //value = value.replaceAll("</script>", "");
+
             return value;
         }
     }
