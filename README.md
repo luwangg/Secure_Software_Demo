@@ -35,7 +35,7 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 ## Eingesetzte Technologien
 - Java -> SpringBoot (Spring)
 - Maven
-- H2 database
+- H2 database (development), PostgreSQL (deployment)
 - Design patterns: MVC + Table Data Gateway
 
 ## Mockup
