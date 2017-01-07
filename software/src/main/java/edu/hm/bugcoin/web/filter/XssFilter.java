@@ -87,9 +87,6 @@ public class XssFilter implements Filter
         }
 
         private String cleanXSS(String value) {
-            value = value.replaceAll("(?i)<.*?>", "");
-            value = value.replaceAll("\\(", "").replaceAll("\\)", "");
-            value = value.replaceAll("'", "");
             value = value.replaceAll("eval\\((.*)\\)", "");
             value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']", "\"\"");
 
