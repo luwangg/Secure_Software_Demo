@@ -25,17 +25,17 @@ Als Software die es sicher zu programmieren gilt, soll eine simple Onlinebanking
 - Benutzername + Password zur Authentifizierung <html>&#10004;</html>
 - Two Factor Authentication <html>&#10004;</html>
 - ~~Captcha~~
-- Signieren von Überweisungen (~~TAN~~, Privatekey, ...)
+- ~~Signieren von Überweisungen (TAN, Privatekey, ...)~~
 - Logout nach Inaktivität <html>&#10004;</html>
 - Freischaltung neuer Nutzer durch Admin, nach PostIdent Verfahren <html>&#10004;</html>
-- Logging von Benutzer/Admin aktivitäten bezüglich SQL-Statements
+- Logging von Benutzer/Admin aktivitäten bezüglich SQL-Statements (heroku logging) <html>&#10004;</html>
 - ~~Sperren nach mehrmaliger fehlerhafter Passwort Eingabe~~
 - ~~Emailverifizierung~~
 
 ## Eingesetzte Technologien
 - Java -> SpringBoot (Spring)
 - Maven
-- H2 database
+- H2 database (development), PostgreSQL (deployment)
 - Design patterns: MVC + Table Data Gateway
 
 ## Mockup
