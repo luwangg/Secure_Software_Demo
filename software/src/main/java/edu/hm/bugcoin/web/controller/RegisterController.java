@@ -81,7 +81,7 @@ public class RegisterController
                     .setCity(registration.getCity())
                     .setEmail(registration.getEmail())
                     .setLevel(CustomerLevel.USER)
-                    .setState(CustomerState.INACTIVE);
+                    .setState(CustomerState.ACTIVE); //TODO: Set to DEACTIVE, now set to active to circumvent "PostIdent-Verfahren" for faster application testing
             setPasswordHashAndSaltOfCustomer(customer, registration.getPassword());
             customerService.addCustomer(customer);
             setBankAccountOfCustomer(customer);
